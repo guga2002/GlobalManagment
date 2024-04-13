@@ -1,0 +1,83 @@
+﻿
+<div class="message-box">
+    @if (TempData["ErrorMessage"] != null && !TempData["ErrorMessage"].ToString().Contains("be null"))
+    {
+        <div class="error-message">
+            <script>
+                alert('@TempData["ErrorMessage"]');
+            </script>
+        </div>
+    }
+    @if (TempData["success"] != null)
+    {
+        <div class="success-message">
+            <script>
+                alert('@TempData["success"]');
+            </script>
+        </div>
+    }
+</div>
+@{
+    Layout = null; // This line ensures that no layout page is applied to this view
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advertisement View</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .advertisement {
+            background-color: rgba(248, 249, 250, 0.55);
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        body {
+            background-image: url('https://images.pexels.com/photos/1590549/pexels-photo-1590549.jpeg?cs=srgb&dl=pexels-irina-iriser-1590549.jpg&fm=jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .containers {
+            width: 100%;
+            letter-spacing:2px;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+            .advertisement h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .advertisement p {
+                font-size: 18px;
+                margin-bottom: 30px;
+            }
+
+            .advertisement .btn-primary {
+                font-size: 20px;
+                padding: 10px 20px;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="containers">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="advertisement text-center">
+                    <h1>კეთილი იყოს თქვენი მობრძანება გლობალში</h1>
+                    <br/>
+                    <p>1956 წელს მთაწმინდის ზედა პლატოზე დამონტაჟდა 185 მ. სიმაღლის სატელევიზიო ანძა და იქვე აშენდა სასტუდიო - სააპარატო ბლოკი 50 კვ.მ ფართობის სტუდიით, ერთი სასტუდიო და ორი კინოარხით. პირველი გადაცემა ეთერში გავიდა 1956 წლის 30 დეკემბერს, 20:00 საათზე. 1957 წლის 25 აგვისტოს თბილისის “დინამოს” სტადიონზე პირველად ამუშავდა მოძრავი სატელევიზიო სადგური და დაიწყო ფეხბურთის მატჩის რეპორტაჟები. ტელევიზიის არსებობის პირველივე წლებიდან განხორციელდა მნიშვნელოვანი სატელევიზიო დადგმები, რომლებშიც მონაწილეობდნენ დიდი მსახიობები: სერგო ზაქარიაძე, სესილია თაყაიშვილი, ვერიკო ანჯაფარიძე, მედეა ჯაფარიძე, გიორგი გეგეჭკორი, დოდო აბაშიძე და სხვები. პირველი სატელევიზიო სპექტაკლი დადგეს მიხეილ თუმანიშვილმა, დავით ცხაკაიამ და მერაბ ჯალიაშვილმა. ტელევიზიის ისტორიაში, კომპოზიტორმა ნოდარ გიგაურმა პირველად შექმნა სატელევიზიო ოპერა- „გამზრდელი“. 1961 წელს ტელემაუწყებლობა ყოველდღიური გახდა. 1964 წელს აშენდა მაგისტრალური რადიოსარელეო ხაზი - “მოსკოვი-თბილისი“. 1965 წლისთვის საქართველოს მოსახლეობის ნახევარზე მეტი იღებდა ტელეგადაცემებს. განსაკუთრებით მიმზიდველი გახდა გადაცემები ფერად მაუწყებლობაზე გადასვლის შემდეგ. თბილისში ის 1965 წლის ნოემბერში დაინერგა. 1971 წლიდან მეექვსე მეტრულ დიაპაზონზე დაიწყო საქართველოს ტელევიზიის მე-2 პროგრამის გადაცემები, სადაც სასწავლო-სამეცნიერო გადაცემები მზადდებოდა. 1991 წლის 16 სექტემბერს, ქვეყანაში შექმნილი პოლიტიკური ვითარების გამო არხის მაუწყებლობა შეწყდა. 1992 წლის პირველ აპრილს „მეორე არხის“ მაუწყებლობა აღდგა. იმ დღიდან, ყოველდღე 19:00 23:00 საათამდე განახლებული და მრავალფეროვანი პროგრამით გადიოდა ეთერში. 1993 წლის პირველ ივლისს მე-2 არხზე საინფორმაციო გადაცემები დაიწყო. 1999 წლიდან - „მეორე არხს“ შეუმცირდა დაფინანსება და 2001 წლიდან მექანიკურ მაუწყებლად გადაიქცა. ნახ. 3.2.30. ტელეანძა თბილისში (სიმაღლე 274,5 მეტრი) 91 2001 წლის სექტემბრიდან საქართველოს სახელმწიფო მაუწყებლობამ გახსნა საინფორმაციო რესურსი ინტერნეტში. 2010 წლის თებერვლიდან - „მეორე არხი“ საპარლამენტო, საზოგადოებრივ-პოლიტიკურ არხად გარდაიქმნა. 2005 წლის იანვარში ძალაში შევიდა კანონი „მაუწყებლობის შესახებ“, რამაც სათავე დაუდო საზოგადოებრივი მაუწყებლის ჩამოყალიბებას. 2006 წლიდან საზოგადოებრივი მაუწყებლის ეთერში 17 ახალი სატელევიზიო და 15 რადიოპროექტი გავიდა. საზოგადოებრივი მაუწყებელი აერთიანებს ტელეარხებს: „პირველი არხი“, „მეორე არხი“ (1991 წლიდან), "პირველი კავკასიური / Первый Кавказский" (მაუწყებლობა 2010-2012 წ.წ.), ასევე რადიოარხებს - საქართველოს რადიო-პირველი არხი FM 102.4 (1925 წლიდან) და რადიო ორი - ქართული რადიო FM 100.9 (1995 წლიდან). </p>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-primary">დაიწყე</a>
+                </div>
+            </div>
+        </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
