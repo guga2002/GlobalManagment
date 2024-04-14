@@ -67,6 +67,7 @@ builder.Services.AddScoped<SignInManager<User>, SignInManagerForUser>();
 
 builder.Services.AddScoped<IUserService, CustomerServices>();
 builder.Services.AddScoped<IAllInOneService, AllInOneService>();
+builder.Services.AddScoped<ITranscoderService, TranscoderServices>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 

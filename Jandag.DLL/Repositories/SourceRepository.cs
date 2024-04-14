@@ -43,6 +43,12 @@ namespace Jandag.DLL.Repositories
             return null;
         }
 
+        public async Task<Source> GetBychanellName(string name)
+        {
+            var res=await source.Include(io => io.chanell).FirstOrDefaultAsync(io => io.chanell.Name == name);
+            return res;
+        }
+
         public async Task Remove(int id)
         {
             var res = await source.FirstOrDefaultAsync(io => io.Id == id);

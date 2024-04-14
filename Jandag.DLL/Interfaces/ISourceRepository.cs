@@ -10,5 +10,6 @@ namespace Jandag.DLL.Interfaces
 {
     public interface ISourceRepository:BaseInterface<Source>
     {
+        Task<Source> GetBychanellName(string name);
     }
 }

@@ -7,10 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GlobalManagment.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
-        [Authorize]
         public IActionResult Index()
         {
             return View();

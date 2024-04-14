@@ -1,0 +1,102 @@
+﻿@using Jandag.BLL.Models.ViewModels;
+@{
+    ViewData["Title"] = "Reciever";
+}
+<h2 class="text-center">რესივერი, მიმღების ინფორმაცია</h2>
+<title>მთავარი გვერდი</title>
+<head>
+    <style>
+        body {
+            background-color: lightpink; /* Light pink */
+            color: #8B4513; /* Saddle brown */
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            color: #8B4513; /* Saddle brown */
+        }
+
+        a {
+            color: #FF4500; /* Orange red */
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            background-color: #FFF8DC; /* Cornsilk */
+            padding: 20px;
+            border-radius: 50px;
+        }
+
+        .button {
+            background-color: #FF6347; /* Tomato */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .button:hover {
+                background-color: #CD5C5C; /* Indian red */
+            }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px 0;
+            background-color: #FFE4E1; /* Light pink */
+        }
+
+        }
+    </style>
+</head>
+<body>
+
+@(Html.DevExtreme().DataGrid<RecieverViewModel>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Reciever")
+        .LoadAction("Get")
+    )
+    .Paging(p => p.PageSize(20))
+        .FilterRow(f => f.Visible(true))
+        .HeaderFilter(f => f.Visible(true))
+        .GroupPanel(p => p.Visible(true))
+        .Grouping(g => g.AutoExpandAll(true))
+        .RemoteOperations(true)
+        .ColumnAutoWidth(true)
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+        columns.AddFor(m => m.CHanellName);
+
+        columns.AddFor(m => m.Frequency);
+
+        columns.AddFor(m => m.ChanellFormat);
+
+        columns.AddFor(m => m.EmrNumber);
+
+        columns.AddFor(m => m.Card);
+
+        columns.AddFor(m => m.Port);
+        }).Summary(s => s
+        .TotalItems(totalItems =>
+        {
+            totalItems.AddFor(m => m.EmrNumber).SummaryType(SummaryType.Count);
+        })
+        .GroupItems(groupItems =>
+        {
+            groupItems.Add().SummaryType(SummaryType.Sum);
+        })
+        )
+)
+</body>
