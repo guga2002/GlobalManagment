@@ -62,26 +62,28 @@
 </head>
 <body>
 
-@(Html.DevExtreme().DataGrid<RecieverViewModel>()
-    .DataSource(ds => ds.Mvc()
-        .Controller("Reciever")
-        .LoadAction("Get")
-    )
-    .Paging(p => p.PageSize(20))
-        .FilterRow(f => f.Visible(true))
-        .HeaderFilter(f => f.Visible(true))
-        .GroupPanel(p => p.Visible(true))
-        .Grouping(g => g.AutoExpandAll(true))
+    @(
+        Html.DevExtreme().DataGrid<RecieverViewModel>()
+        .DataSource(ds => ds.Mvc()
+            .Controller("Reciever")
+            .LoadAction("Get")
+        )
+        .Paging(p => p.PageSize(20))
+            .FilterRow(f => f.Visible(true))
+            .HeaderFilter(f => f.Visible(true))
+            .GroupPanel(p => p.Visible(true))
+            .Grouping(g => g.AutoExpandAll(true))
+            .RemoteOperations(true)
+            .ColumnAutoWidth(true)
         .RemoteOperations(true)
-        .ColumnAutoWidth(true)
-    .RemoteOperations(true)
-    .Columns(columns => {
+        .Columns(columns => {
 
-        columns.AddFor(m => m.CHanellName);
+            columns.AddFor(m => m.CHanellName);
 
-        columns.AddFor(m => m.Frequency);
+            columns.AddFor(m => m.Frequency);
 
-        columns.AddFor(m => m.ChanellFormat);
+            columns.AddFor(m => m.ChanellFormat);
+            columns.AddFor(m => m.Encryption);
 
         columns.AddFor(m => m.EmrNumber);
 

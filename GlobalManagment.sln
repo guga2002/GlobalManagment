@@ -3,16 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalManagment", "GlobalManagment\GlobalManagment.csproj", "{4CD8CF64-A9C3-4AAD-A735-B40F4E2346C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalManagment", "GlobalManagment\GlobalManagment.csproj", "{4CD8CF64-A9C3-4AAD-A735-B40F4E2346C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevExtreme NuGet.config", "DevExtreme NuGet.config", "{B26C6E83-FFA6-418C-A795-1D4AE94290AC}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jandag.DLL", "Jandag.DLL\Jandag.DLL.csproj", "{575D84E0-D46D-48BC-881E-BB5B4017A66F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jandag.DLL", "Jandag.DLL\Jandag.DLL.csproj", "{575D84E0-D46D-48BC-881E-BB5B4017A66F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jandag.BLL", "Jandag.BLL\Jandag.BLL.csproj", "{76CB6D33-6DC7-486C-8857-713D6298E5E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jandag.BLL", "Jandag.BLL\Jandag.BLL.csproj", "{76CB6D33-6DC7-486C-8857-713D6298E5E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jandag.Persistance", "Jandag.Persistance\Jandag.Persistance.csproj", "{95E2F3A1-226F-431B-A05A-F98C001A7284}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{76CB6D33-6DC7-486C-8857-713D6298E5E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76CB6D33-6DC7-486C-8857-713D6298E5E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76CB6D33-6DC7-486C-8857-713D6298E5E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95E2F3A1-226F-431B-A05A-F98C001A7284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95E2F3A1-226F-431B-A05A-F98C001A7284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95E2F3A1-226F-431B-A05A-F98C001A7284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95E2F3A1-226F-431B-A05A-F98C001A7284}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GlobalManagment.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserService ser;
@@ -14,7 +15,6 @@ namespace GlobalManagment.Controllers
         {
             this.ser = se;
         }
-        [Authorize]
         public IActionResult Index()
         {
             return View();

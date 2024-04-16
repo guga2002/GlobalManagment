@@ -2,10 +2,12 @@
 using DevExtreme.AspNet.Mvc;
 using Jandag.BLL.Interface;
 using Jandag.BLL.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GlobalManagment.Controllers
 {
+    [Authorize]
     public class TranscoderController : Controller
     {
         private readonly ITranscoderService ser;

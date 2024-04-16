@@ -1,0 +1,134 @@
+﻿@using Jandag.BLL.Models.ViewModels
+@using Jandag.Persistance.Services
+@model UniteChanellNamesAndAlarms
+@{
+    Layout = "_Layout" ;
+}
+@if (Model == null)
+{
+    var defaultModel = new EmrServices();
+    // You may need to initialize the properties of the default model here
+    Model.ports = await defaultModel.GetPortsWhereAlarmsIsOn();
+    Model.namees = await defaultModel.GetChanellNames();
+}
+<head>
+
+
+<style>
+
+    body {
+            margin-top: 0px;
+            background-color: #D2D180;
+    }
+    .h1
+    {
+        margin-bottom:100px;
+    }
+    .container {
+        flex: 2;
+        max-width: 100%; /* Adjust as needed */
+        min-height: 100%;
+        background-color:#;
+    }
+
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .button {
+        margin: 2px 2px 2px 2px;
+        min-width: 220px;
+        min-height: 40px;
+        background-color: green;
+        color:white;
+        font-weight:400;
+        font-size:18px;
+        border-radius:200px;
+    }
+
+        .header {
+            position:center ;
+            top: 0;
+            left: 0;
+            width: 100%; 
+            background-color: #B2B377;
+            color: white;  
+            text-align: center; 
+        }
+
+        .button.red {
+            background-color: red;
+            font-weight:500;
+            color:black;
+        }
+
+    .button.yellow {
+        background-color:slategrey;
+        color:black;
+        font-weight:bold;
+        opacity:0.3;
+    }
+
+            .button:hover{
+              
+                background-color:black;
+                color:red;
+                opacity:1;
+            }
+
+</style>
+    <h1 align="center"> გლობალის არხები (მთავარი გვერდი)</h1>
+</head>
+<body>
+
+    <script>
+        function refreshPage() {
+            location.reload();
+        }
+        setInterval(refreshPage, 3000);
+    </script>
+    <div class="container">
+        <div class="button-group">
+            @{
+                int i = 0;
+                int j = 0;
+            }
+            @foreach (var item in Model.namees)
+            {
+                var buttonColorss = "green";
+                if (j < Model.ports.Count)
+                {
+                    if (i >=92)
+                    {
+                        if (Model.ports[j] == i + 2)
+                        {
+                         
+                            buttonColorss = "red";
+                            j++;
+                        }
+                    }
+                    else
+                    if (Model.ports[j] == i + 1)
+                    {
+                       
+                        buttonColorss = "red";
+                        j++;
+                       
+                    }
+                  
+                }
+                if (item.Value.Equals("Test"))
+                {
+                    buttonColorss = "yellow";
+                }
+                <form method="post" asp-controller="ChanellAlarm" asp-action="HandleButtonClick" asp-route-buttonId="@item.Value">
+                    <button type="submit" id="button@(item.Key)" class="btn btn-primary button @(buttonColorss)">@item.Key. @item.Value</button>
+                </form>
+                i++;
+            }
+        </div>
+    </div>
+</body>

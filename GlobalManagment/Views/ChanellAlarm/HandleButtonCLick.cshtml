@@ -1,0 +1,94 @@
+﻿@using Jandag.BLL.Models
+@model AllInOneModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All In One Model Details</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #B2B377;
+        }
+
+        .detail {
+            margin-bottom: 15px;
+        }
+
+        .label {
+            font-weight: bold;
+            color:black;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #B2B377;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size:16px;
+        } 
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+
+        .container{
+            background-color:aquamarine;
+            border-radius:40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>არხის დეტალი</h1>
+
+        <div class="detail">
+            <span class="label">არხის სახელი:</span>
+            <span>@Model.ChanellName</span>
+        </div>
+        <div class="detail">
+            <span class="label">ფორმატი:</span>
+            <span>@Model.ChanellFormat</span>
+        </div>
+        <div class="detail">
+            <span class="label">აქტიური წყარო:</span>
+            <span>@(Model.SourceIsActive ? "Yes" : "No")</span>
+        </div>
+        <div class="detail">
+            <span class="label">სტრიმი, სიხშირე:</span>
+            <span>@Model.Frequency</span>
+        </div>
+        <div class="detail">
+            <span class="label">მიმღები:</span>
+            <span>@Model.RecieverInfo</span>
+        </div>
+        <div class="detail">
+            <span class="label">ტრანსკოდერი:</span>
+            <span>@Model.TranscoderInfo</span>
+        </div>
+        <div class="detail">
+            <span class="label">დესკრამბლერი:</span>
+            <span>@Model.DesclamlerInfo</span>
+        </div>
+
+        <div>
+            <form method="post" asp-controller="ChanellAlarm" asp-action="Index">
+                <button type="submit" class="btn btn-primary button">უკან</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

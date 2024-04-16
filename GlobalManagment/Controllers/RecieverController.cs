@@ -1,10 +1,12 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Jandag.BLL.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GlobalManagment.Controllers
 {
+    [Authorize]
     public class RecieverController : Controller
     {
         public IActionResult Index()

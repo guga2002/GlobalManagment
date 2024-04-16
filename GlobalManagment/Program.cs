@@ -8,6 +8,8 @@ using Jandag.DLL.Entities;
 using Jandag.DLL.Interfaces;
 using Jandag.DLL.Repositories;
 using Jandag.DLL.Repositories.UserRelated;
+using Jandag.Persistance.Interface;
+using Jandag.Persistance.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -68,6 +70,8 @@ builder.Services.AddScoped<SignInManager<User>, SignInManagerForUser>();
 builder.Services.AddScoped<IUserService, CustomerServices>();
 builder.Services.AddScoped<IAllInOneService, AllInOneService>();
 builder.Services.AddScoped<ITranscoderService, TranscoderServices>();
+
+builder.Services.AddScoped<IService,EmrServices>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
