@@ -6,5 +6,6 @@ namespace Interfaces
 {
     public interface IChanellRepository:BaseInterface<Chanell>
     {
+        Task Remove(string name);
     }
 }

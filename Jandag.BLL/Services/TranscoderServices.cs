@@ -14,40 +14,75 @@ namespace Jandag.BLL.Services
 
         public async Task<bool> AddAsync(TranscoderViewModel Item)
         {
-            var source = await work.sourceRepository.GetBychanellName(Item.CHanellName);
-            if (source is not null)
+            
+            var source = await work.sourceRepository.GetById(Item.Id);
+            if (source !=null)
             {
-                int id = -1;
-                if (source.chanell is not null)
-                {
-                    id = source.chanell.Id;
-                }
-
-                if (id != -1)
-                {
+                    source.ChanellFormat = Item.TransocdingFormat;
                     Transcoder trans = new Transcoder()
                     {
-                        Port = Item.Id,
-                        Card = Item.Id,
+                        Port = int.Parse(Item.Port),
+                        Card = int.Parse(Item.Card),
                         EmrNumber = Item.EmrNumber,
-                        Source_ID = id,
+                        Source_ID=source.Id,
+                         Source=source,
                     };
                     await work.transcoderRepository.Add(trans);
-                    await work.CommitAndSavechanges();
                     return true;
-                }
             }
             throw new ArgumentException("msgavsi arxi ar arsebobs");
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await work.transcoderRepository.Remove(id);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public Task<IEnumerable<TranscoderViewModel>> GetAllAsync()
+        public async Task<IEnumerable<TranscoderViewModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<TranscoderViewModel> view = new List<TranscoderViewModel>();
+                var trans = await work.transcoderRepository.GetAll();
+                foreach (var item in trans)
+                {
+                    var nk = new TranscoderViewModel()
+                    {
+                        Card = item.Card.ToString(),
+                        Port = item.Port.ToString(),
+                        EmrNumber = item.EmrNumber,
+                        TransocdingFormat = item.Source.ChanellFormat,
+                        CHanellName = item.Source.chanell.Name,
+                        Id=item.Id,
+                    };
+                    view.Add(nk);
+                }
+                return view;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task Remove(int emrNumber, int card, int port)
+        {
+            try
+            {
+                await work.transcoderRepository.Remove(emrNumber, card, port);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public Task<bool> UpdateAsync(TranscoderViewModel item)

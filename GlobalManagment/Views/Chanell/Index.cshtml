@@ -1,0 +1,200 @@
+﻿@using Jandag.BLL.Models
+@model IEnumerable<ChanellModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channels Information</title>
+    <style>
+        body {
+            background-color: #B2B377;
+            color: #8B4513;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            color: #8B4513;
+        }
+
+        a {
+            color: #FF4500;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        .container {
+            max-width: 80%;
+            margin: 0 auto;
+            background-color: #FFF8DC;
+            padding: 20px;
+            border-radius: 50px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr{
+            background-color: #f9f9f9;
+        }
+        tr:hover
+        {
+            background-color:antiquewhite
+        }
+          
+
+        .error-message, .success-message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .error-message {
+            background-color: #ffcccc;
+            color: #cc0000;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .channel-info {
+            background-color: #f7f7f7;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+        }
+        button{
+            min-width:20px;
+        }
+
+            .delete-btn:hover {
+                background-color: #c82333;
+            }
+
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        @if (TempData["Error"] != null)
+        {
+            <div class="error-message">
+                <script>alert('@TempData["Error"]');</script>
+            </div>
+        }
+        @if (TempData["success"] != null)
+        {
+            <div class="success-message">
+                <script>alert('@TempData["success"]');</script>
+            </div>
+        }
+        
+        <h2>არხების ინფორმაცია</h2>
+        <div class="container">
+            <form asp-action="Add" asp-controller="Chanell" method="get">
+                <button type="submit" class="btn btn-primary">არხის დამატება</button>
+            </form>
+            <form asp-action="Index" asp-controller="Source" method="get">
+                <button type="submit" class="btn btn-primary">წყაროს დამატება</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>იდენტიფიკატორი</th>
+                    <th>არხის სახელი</th>
+                    <th>ინფორმაცია</th>
+                    <th>მოქმედება</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var frequency in Model)
+                {
+                    <tr>
+                        <td>@frequency.ID</td>
+                        <td>@frequency.Name</td>
+                        <td>
+                    
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ფორმატი</th>
+                                        <th>სტატუსი</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in frequency.Sources)
+                                    {
+                                        <tr>
+                                            <td>@item.ChanellFormat</td>
+                                            <td>@item.Status</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <form method="post" asp-action="Delete" asp-controller="Chanell">
+                                <input type="hidden" name="Name" value="@frequency.Name" />
+                                <input type="hidden" name="Sources" value="@frequency.Sources" />
+                                <button type="submit" class="btn btn-danger">წაშლა</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -9,9 +9,10 @@ namespace Jandag.BLL.Models
 {
     public class TranscoderModel
     {
+        public int  Id { get; set; }
         public int EmrNumber { get; set; }
         public int Card { get; set; }
         public int Port { get; set; }
-        public Guid Source_ID { get; set; }
+        public int Source_ID { get; set; }
     }
 }

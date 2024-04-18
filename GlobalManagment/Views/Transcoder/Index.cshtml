@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Jandag.BLL.Models.ViewModels
+@model IEnumerable<TranscoderViewModel>
+@{
     ViewData["Title"] = "Index";
 }
 <div class="message-box">
@@ -77,48 +79,48 @@
     </style>
 </head>
 <body>
-    @(
-        Html.DevExtreme().DataGrid<Jandag.BLL.Models.ViewModels.TranscoderViewModel>()
-        .DataSource(ds => ds.Mvc()
-             .Key("Id")
-            .Controller("Transcoder")
-            .LoadAction("Get")
-            .InsertAction("Insert")
-            .UpdateAction("Update")
-            .DeleteAction("Delete")
-        )
-        .Paging(p => p.PageSize(20))
-            .FilterRow(f => f.Visible(true))
-            .HeaderFilter(f => f.Visible(true))
-            .RemoteOperations(true)
-            .ColumnAutoWidth(true)
-        .RemoteOperations(true)
-        .Columns(columns => {
-
-        columns.AddFor(m => m.CHanellName);
-
-        columns.AddFor(m => m.TransocdingFormat);
-
-        columns.AddFor(m => m.EmrNumber);
-
-        columns.AddFor(m => m.Card);
-
-        columns.AddFor(m => m.Port);
-    })
-        .Editing(e => e
-        .AllowAdding(true)
-        .AllowUpdating(true)
-        .AllowDeleting(true)
-        )
-    .Summary(s => s
-        .TotalItems(totalItems =>
-        {
-            totalItems.AddFor(m => m.EmrNumber).SummaryType(SummaryType.Count);
-        })
-        .GroupItems(groupItems =>
-        {
-            groupItems.Add().SummaryType(SummaryType.Sum);
-        })
-        )
-)
+    <form asp-action="Add" asp-controller="Transcoder" method="get">
+        <button type="submit" class="btn btn-primary">დამატება</button>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>იდენტიფიკატორი</th>
+                <th>არხის სახელი</th>
+                <th>ფორმატი</th>
+                <th>EMR</th>
+                <th>სიჩქარე</th>
+                <th>ქარდი</th>
+                <th>პორტი</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var frequency in Model)
+            {
+                <tr>
+                    <td>@frequency.Id</td>
+                    <td>@frequency.CHanellName</td>
+                    <td>@frequency.TransocdingFormat</td>
+                    <td>@frequency.EmrNumber</td>
+                    <td>@frequency.Card</td>
+                    <td>@frequency.Port</td>
+                    <td class="containera">
+                        <form method="get" asp-action="Delete" asp-asp-controller="Transcoder">
+                            <input type="hidden" name="id" value=@frequency.Id>
+                            <button type="submit" class="btn btn-danger">წაშლა</button>
+                        </form>
+                        @*  <form method="post" asp-action="Edit" asp-asp-controller="SatteliteChanells">
+                    <input type="hidden" name="Degree" value="@frequency.Degree" />
+                    <input type="hidden" name="PortIn250" value="@frequency.PortIn250" />
+                    <input type="hidden" name="SymbolRate" value="@frequency.SymbolRate" />
+                    <input type="hidden" name="Frequency" value="@frequency.Frequency" />
+                    <input type="hidden" name="Polarization" value="@frequency.Polarization" />
+                    <button type="submit" class="btn btn-primary">რედაქტირება</button>
+                    </form> *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+  
 </body>

@@ -26,13 +26,14 @@ namespace Jandag.DLL.Repositories
 
         public IDesclambler desclamblerRepository => new DesclamblerRepository(database);
 
-        public IRecieverInterface recieverRepository => new RecieverRepository(database);
 
         public IEmr60Info emr60InfoRepository => new Emr60InfoRepository(database);
 
         public ISourceRepository sourceRepository => new SourceRepository(database);
 
         public ITranscoderRepository transcoderRepository => new TranscoderReporitory(database);
+
+        public ISatteliteFrequency satteliterFrequencyRepository => new SatteliteFrequencyRepository(database);
 
         public async Task CommitAndSavechanges()
         {

@@ -22,8 +22,7 @@ namespace Jandag.BLL.Mapper
             CreateMap<SourceModel, Source>()
               .ForMember(dest => dest.ChanellFormat, opt => opt.MapFrom(src => src.ChanellFormat))
               .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
-              .ForMember(dest => dest.ChanellId, opt => opt.MapFrom(src => src.ChanellId))
-              .ForMember(dest => dest.Reciever_ID, opt => opt.MapFrom(src => src.Reciever_ID)).ReverseMap();
+              .ForMember(dest => dest.ChanellId, opt => opt.MapFrom(src => src.ChanellId)).ReverseMap();
 
             CreateMap<DesclamblerModel, Desclambler>()
               .ForMember(dest => dest.EmrNumber, opt => opt.MapFrom(src => src.EmrNumber))
@@ -42,21 +41,11 @@ namespace Jandag.BLL.Mapper
               .ForMember(dest => dest.Port, opt => opt.MapFrom(src => src.Port))
               .ForMember(dest => dest.SourceEmr, opt => opt.MapFrom(src => src.SourceEmr)).ReverseMap();
 
-            CreateMap<RecieverModel, Reciever>()
-             .ForMember(dest => dest.EmrNumber, opt => opt.MapFrom(src => src.EmrNumber))
-             .ForMember(dest => dest.Frequency, opt => opt.MapFrom(src => src.Frequency))
-             .ForMember(dest => dest.Card, opt => opt.MapFrom(src => src.Card))
-             .ForMember(dest => dest.Port, opt => opt.MapFrom(src => src.Port))
-             .ForMember(dest => dest.FromOptic, opt => opt.MapFrom(src => src.FromOptic))
-             .ForMember(dest => dest.Sources, opt => opt.MapFrom(src => src.Sources)).ReverseMap();
-
             CreateMap<TranscoderModel, Transcoder>()
                .ForMember(dest => dest.EmrNumber, opt => opt.MapFrom(src => src.EmrNumber))
                .ForMember(dest => dest.Card, opt => opt.MapFrom(src => src.Card))
                .ForMember(dest => dest.Port, opt => opt.MapFrom(src => src.Port))
                .ForMember(dest => dest.Source_ID, opt => opt.MapFrom(src => src.Source_ID)).ReverseMap() ;
         }
-
-
     }
 }

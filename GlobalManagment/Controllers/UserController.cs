@@ -1,7 +1,9 @@
 ﻿using GlobalManagment.Models;
 using Jandag.BLL.Interface;
 using Jandag.BLL.Models;
+using Jandag.DLL.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GlobalManagment.Controllers
@@ -11,12 +13,27 @@ namespace GlobalManagment.Controllers
     {
         private readonly IUserService ser;
 
-        public UserController(IUserService se)
+        private readonly RoleManager<IdentityRole> rolemana;
+
+        private readonly UserManager<User> usermanager;
+        public UserController(IUserService se, RoleManager<IdentityRole> rolemana, UserManager<User> usermanager)
         {
             this.ser = se;
+            this.rolemana = rolemana;
+            this.usermanager = usermanager;
         }
-        public IActionResult Index()
+        [AllowAnonymous]
+        public async  Task<IActionResult> Index()
         {
+            if(! await rolemana.RoleExistsAsync("Admin"))
+            {
+               await  rolemana.CreateAsync(new IdentityRole("Admin"));
+            }
+            if (User is not null&& User.Identity is not null&& User.Identity.Name is not null)
+            {
+                var user = await usermanager.FindByNameAsync(User.Identity.Name);
+                await usermanager.AddToRoleAsync(user, "Admin");
+            }
             return View();
         }
 
@@ -35,7 +52,7 @@ namespace GlobalManagment.Controllers
                 var res = await ser.SignIn(mod);
                 if (res)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
                 }
                 TempData["Shecdoma"] = "such a user no exist";
                 return RedirectToAction("SignIn");
@@ -86,7 +103,7 @@ namespace GlobalManagment.Controllers
                     var res = await ser.SignOut();
                     if (res == true)
                     {
-                        return RedirectToAction("SignIn");
+                        return RedirectToAction("Index","Home");
                     }
 
                     return RedirectToAction("Index");

@@ -94,40 +94,6 @@ namespace Jandag.DLL.Migrations
                     b.ToTable("Emr60infos");
                 });
 
-            modelBuilder.Entity("DDL.Database_Layer.Entities.Reciever", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Card")
-                        .HasColumnType("int")
-                        .HasColumnName("Card_In_Reciever");
-
-                    b.Property<int>("EmrNumber")
-                        .HasColumnType("int")
-                        .HasColumnName("Emr_Number");
-
-                    b.Property<string>("Frequency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Frequency_Stream");
-
-                    b.Property<bool>("FromOptic")
-                        .HasColumnType("bit")
-                        .HasColumnName("Is_From_Optic");
-
-                    b.Property<int>("Port")
-                        .HasColumnType("int")
-                        .HasColumnName("Port_In_Reciever");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Recievers");
-                });
-
             modelBuilder.Entity("DDL.Database_Layer.Entities.Transcoder", b =>
                 {
                     b.Property<int>("Id")
@@ -188,6 +154,34 @@ namespace Jandag.DLL.Migrations
                     b.ToTable("DesclamlerCards");
                 });
 
+            modelBuilder.Entity("Jandag.DLL.Entities.SatteliteFrequency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Degree")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Frequency")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Polarisation")
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<int>("PortIn250")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SymbolRate")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SatteliteFrequencies");
+                });
+
             modelBuilder.Entity("Jandag.DLL.Entities.Source", b =>
                 {
                     b.Property<int>("Id")
@@ -204,9 +198,8 @@ namespace Jandag.DLL.Migrations
                     b.Property<int>("ChanellId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reciever_ID")
-                        .HasColumnType("int")
-                        .HasColumnName("Reciever_Id");
+                    b.Property<int?>("SatteliteId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit")
@@ -216,7 +209,7 @@ namespace Jandag.DLL.Migrations
 
                     b.HasIndex("ChanellId");
 
-                    b.HasIndex("Reciever_ID");
+                    b.HasIndex("SatteliteId");
 
                     b.ToTable("Sources");
                 });
@@ -482,15 +475,13 @@ namespace Jandag.DLL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DDL.Database_Layer.Entities.Reciever", "Reciever")
+                    b.HasOne("Jandag.DLL.Entities.SatteliteFrequency", "sattelite")
                         .WithMany("Sources")
-                        .HasForeignKey("Reciever_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Reciever");
+                        .HasForeignKey("SatteliteId");
 
                     b.Navigation("chanell");
+
+                    b.Navigation("sattelite");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -554,7 +545,7 @@ namespace Jandag.DLL.Migrations
                     b.Navigation("DescCard");
                 });
 
-            modelBuilder.Entity("DDL.Database_Layer.Entities.Reciever", b =>
+            modelBuilder.Entity("Jandag.DLL.Entities.SatteliteFrequency", b =>
                 {
                     b.Navigation("Sources");
                 });

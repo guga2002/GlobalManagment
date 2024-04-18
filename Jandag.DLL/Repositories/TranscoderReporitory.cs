@@ -27,7 +27,7 @@ namespace Repositories
 
         public async Task<IEnumerable<Transcoder>> GetAll()
         {
-            return await Transcoder.AsNoTracking().ToListAsync();
+            return await Transcoder.Include(io=>io.Source).ThenInclude(io=>io.chanell).ToListAsync();
         }
 
         public async Task<Transcoder> GetById(int id)
@@ -60,6 +60,15 @@ namespace Repositories
             }
         }
 
+        public async Task Remove(int emrNumber,int card,int port)
+        {
+            var res = await Transcoder.FirstOrDefaultAsync(io => io.EmrNumber==emrNumber&&io.Card==card&&io.Port==port);
+            if (res is not null)
+            {
+                Transcoder.Remove(res);
+                await database.SaveChangesAsync();
+            }
+        }
         public async Task Update(Transcoder item)
         {
             var res = await Transcoder.FirstOrDefaultAsync(io => io.Source_ID == item.Source_ID);

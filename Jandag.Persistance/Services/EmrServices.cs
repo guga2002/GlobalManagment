@@ -67,8 +67,6 @@ namespace Jandag.Persistance.Services
 
         public async Task<List<int>> GetPortsWhereAlarmsIsOn()
         {
-
-
             List<int> lst = new List<int>();
             try
             {

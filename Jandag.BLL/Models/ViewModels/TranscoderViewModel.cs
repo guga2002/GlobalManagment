@@ -16,7 +16,7 @@ namespace Jandag.BLL.Models.ViewModels
         public string CHanellName { get; set; }
 
         [Display(Name = "ტრანსკოდირების ფორმატი")]
-        public TransocdingFormat TransocdingFormat { get; set; }
+        public string TransocdingFormat { get; set; }
 
         [Display(Name = "იემერის მისამართი")]
         public int EmrNumber { get; set; }
@@ -28,16 +28,5 @@ namespace Jandag.BLL.Models.ViewModels
         public string Port { get; set; }
     }
 
-    public enum TransocdingFormat
-    {
-        [Display(Name = "MPEG-2")]
-        Mpeg2,
-        [Display(Name = "MPEG-4")]
-        mpeg4,
-        [Display(Name = "HD")]
-        HD,
-        [Display(Name = "SD")]
-        Sd
-
-    }
+   
 }

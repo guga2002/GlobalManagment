@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GlobalManagment.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()

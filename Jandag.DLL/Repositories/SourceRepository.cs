@@ -1,4 +1,5 @@
-﻿using Jandag.DLL.Data;
+﻿using DDL.Database_Layer.Entities;
+using Jandag.DLL.Data;
 using Jandag.DLL.Entities;
 using Jandag.DLL.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,7 @@ namespace Jandag.DLL.Repositories
 
         public async Task<IEnumerable<Source>> GetAll()
         {
-           return await source.Include(io=>io.Transcoder).Include(io=>io.Desclambler).Include(io=>io.Reciever).Include(io=>io.chanell).ToListAsync();
+           return await source.Include(io=>io.Transcoder).Include(io=>io.Desclambler).ThenInclude(io=>io.DescCard).Include(io=>io.chanell).ThenInclude(io=>io.Sources).ToListAsync();
         }
 
         public async Task<Source> GetById(int id)
@@ -45,8 +46,12 @@ namespace Jandag.DLL.Repositories
 
         public async Task<Source> GetBychanellName(string name)
         {
-            var res=await source.Include(io => io.chanell).FirstOrDefaultAsync(io => io.chanell.Name == name);
-            return res;
+            var id = database.Chanels.FirstOrDefault(io => io.Name.ToLower()==name.ToLower());
+            if (id is not null)
+            {
+                return await source.Where(io => io.ChanellId == id.Id).Include(io=>io.chanell).FirstOrDefaultAsync();
+            }
+            return null;
         }
 
         public async Task Remove(int id)

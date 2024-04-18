@@ -20,13 +20,11 @@ namespace Jandag.DLL.Entities
         [ForeignKey("chanell")]
         public int ChanellId { get; set; }
         public Chanell chanell { get; set; }
-
-        [Column("Reciever_Id")]
-        [ForeignKey("Reciever")]
-        public int Reciever_ID { get; set; }
-        public Reciever Reciever { get; set; }
         public Transcoder Transcoder { get; set; }
         public Desclambler Desclambler { get; set; }
- 
+
+        [ForeignKey("sattelite")]
+        public int?  SatteliteId { get; set; }
+        public SatteliteFrequency sattelite { get; set; }
     }
 }

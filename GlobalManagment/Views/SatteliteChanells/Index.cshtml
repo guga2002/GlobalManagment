@@ -1,0 +1,133 @@
+﻿@{
+    Layout = null;
+}
+@using Jandag.BLL.Models.ViewModels;
+@using Jandag.BLL.Models;
+@model List<SatteliteViewMonitoring>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>სატელიტის მონიტორინგი</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+        <style >
+
+            .body
+            {
+            background-color: #8B4513;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            }
+            .h2
+            {
+                align-content:center;
+            }
+
+        .button.buttonIko {
+            margin: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 17px;
+            border:groove;
+            border-radius: 40px;
+            padding: 10px 20px;
+            background-color:green;
+            font-weight:bolder;
+        }
+
+            .button.buttonIko.red
+            {
+                background-color:red;
+            }
+
+            .button.buttonIko:hover{
+                background-color:black;
+                font-weight:bolder;
+                color:red;
+            }
+
+        .container {
+            padding: 20px;
+            display:inline-flex;
+            flex-wrap: wrap;
+            min-width:98%;
+            gap: 10px;
+            justify-content: flex-start; 
+            background-color: #FFF8DC;
+        }
+
+        .card {
+            width: calc(35%);
+            flex: auto;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color:#FFF8DC;
+        }
+
+        .card-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            margin-left:45%;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #3434545_H_43455{
+           background-color:red;
+           color:red;
+        }
+
+    </style>
+</head>
+<body>
+
+    <script>
+        function refreshPage() {
+            location.reload();
+        }
+        setInterval(refreshPage, 3000);
+    </script>
+    @{
+        string cvlad = "green";
+    }
+    <div class="container">
+        @foreach (var monitoring in Model)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">@monitoring.Degree</h4>
+                    <div class="btn-group" role="group" aria-label="Frequency Buttons">
+                        @foreach (var detail in monitoring.details)
+                        {
+                            if (detail.HaveError)
+                            {
+                                cvlad = "red";
+                            }
+                            else
+                            {
+                                cvlad = "green";
+                            }
+                            var buttonId = $"{detail.Frequency}_{detail.Polarisation}_{detail.SymbolRate}";
+                            <form method="get" asp-action="ViewAdditionalDetails" asp-asp-controller="SatteliteChanells">
+                                <input type="hidden" name="frequency" value="@detail.PortIn250" />
+                            <button type="submit" id="@buttonId" class="btn btn-primary button @cvlad buttonIko">
+                                @($"{detail.Frequency} {detail.Polarisation} {detail.SymbolRate}")
+                            </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

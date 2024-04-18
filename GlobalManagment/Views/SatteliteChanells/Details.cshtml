@@ -1,0 +1,68 @@
+﻿@using Jandag.BLL.Models.ViewModels
+@model IEnumerable<FrequencyDeleteModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frequencies</title>
+
+    <style>
+        .containera {
+            display: flex;
+            flex-grow: 1;
+            justify-content:center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+       <form asp-action="Add" asp-asp-controller="SatteliteChanells" method="get">
+                                <button type="submit" class="btn btn-primary">დამატება</button>
+                           </form>
+    <div>
+        <h2>სიხშირეები</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>გრადუსი</th>
+                    <th>სიხშირე</th>
+                    <th>პოლარიზაცია</th>
+                    <th>სიჩქარე</th>
+                    <th>პორტის ნომერი 250-ში</th>
+                    <th>მოქმეება</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var frequency in Model)
+                {
+                    <tr>
+                        <td>@frequency.Degree</td>
+                        <td>@frequency.Frequency</td>
+                        <td>@frequency.Polarization</td>
+                        <td>@frequency.SymbolRate</td>
+                        <td>@frequency.PortIn250</td>
+                        <td class="containera">
+                            <form method="post" asp-action="Delete" asp-asp-controller=" SatteliteChanells">
+                                <input type="hidden" name="Degree" value="@frequency.Degree" />
+                                <input type="hidden" name="PortIn250" value="@frequency.PortIn250" />
+                                <input type="hidden" name="SymbolRate" value="@frequency.SymbolRate" />
+                                <input type="hidden" name="Frequency" value="@frequency.Frequency" />
+                                <input type="hidden" name="Polarization" value="@frequency.Polarization" />
+                                <button type="submit" class="btn btn-danger">წაშლა</button>
+                            </form>
+                           @*  <form method="post" asp-action="Edit" asp-asp-controller="SatteliteChanells">
+                                <input type="hidden" name="Degree" value="@frequency.Degree" />
+                                <input type="hidden" name="PortIn250" value="@frequency.PortIn250" />
+                                <input type="hidden" name="SymbolRate" value="@frequency.SymbolRate" />
+                                <input type="hidden" name="Frequency" value="@frequency.Frequency" />
+                                <input type="hidden" name="Polarization" value="@frequency.Polarization" />
+                                <button type="submit" class="btn btn-primary">რედაქტირება</button>
+                            </form> *@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

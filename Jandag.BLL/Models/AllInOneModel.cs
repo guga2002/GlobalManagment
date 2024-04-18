@@ -17,8 +17,6 @@ namespace Jandag.BLL.Models
         public bool SourceIsActive { get; set; }
         [Display(Name = "სიხშირე, სტრიმი")]
         public string Frequency { get; set; }
-        [Display(Name = "მიმღები")]
-        public string RecieverInfo { get; set; }
 
         [Display(Name = "ტრანსკოდერი")]
         public string TranscoderInfo { get; set; }

@@ -12,13 +12,13 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
     @* Uncomment to use the HtmlEditor control *@
-    @* <script src="https://unpkg.com/devextreme-quill@23_2/dist/dx-quill.min.js"></script> *@
+    <script src="https://unpkg.com/devextreme-quill@23_2/dist/dx-quill.min.js"></script> 
 
     @* Uncomment to use the Gantt control *@
-    @*<link href="~/css/devextreme/dx-gantt.css" rel="stylesheet" />*@
+    <link href="~/css/devextreme/dx-gantt.css" rel="stylesheet" />
 
     @* Uncomment to use the Diagram control *@
-    @*<link href="~/css/devextreme/dx-diagram.css" rel="stylesheet" />*@
+    <link href="~/css/devextreme/dx-diagram.css" rel="stylesheet" />
 
     <link href="~/css/devextreme/bootstrap.css" rel="stylesheet" />
 
@@ -31,45 +31,51 @@
     @*<script src="~/js/devextreme/dx-gantt.js"></script>*@
 
     @* Uncomment to use the Diagram control *@
-    @*<script src="~/js/devextreme/dx-diagram.js"></script>*@
+    <script src="~/js/devextreme/dx-diagram.js"></script>
 
     <script src="~/js/devextreme/jquery.js"></script>
     <script src="~/js/devextreme/bootstrap.js"></script>
 
     @* Uncomment to use Globalize for localization *@
     @* Docs: https://docs.devexpress.com/AspNetCore/400577#globalize *@
-    @*<script src="~/js/devextreme/cldr.js"></script>*@
+    <script src="~/js/devextreme/cldr.js"></script>
     @*<script src="~/js/devextreme/cldr/event.js"></script>*@
     @*<script src="~/js/devextreme/cldr/supplemental.js"></script>*@
-    @*<script src="~/js/devextreme/cldr/unresolved.js"></script>*@
+    <script src="~/js/devextreme/cldr/unresolved.js"></script>
     @*<script src="~/js/devextreme/globalize.js"></script>*@
     @*<script src="~/js/devextreme/globalize/message.js"></script>*@
     @*<script src="~/js/devextreme/globalize/number.js"></script>*@
-    @*<script src="~/js/devextreme/globalize/currency.js"></script>*@
-    @*<script src="~/js/devextreme/globalize/date.js"></script>*@
+    @*<script src="~/js/devextreme/globalize/currency.js"></script>
+    @*<script src="~/js/devextreme/globalize/date.js"></script>
 
     @* Uncomment to enable client-side export *@
-    @*<script src="~/js/devextreme/jszip.js"></script>*@
+    <script src="~/js/devextreme/jszip.js"></script>
 
     <script src="~/js/devextreme/dx.all.js"></script>
 
     @* Uncomment to provide geo-data for the VectorMap control *@
     @* Docs: https://js.devexpress.com/DevExtreme/Guide/Widgets/VectorMap/Providing_Data/#Data_for_Areas *@
-    @*<script src="~/js/devextreme/vectormap-data/world.js"></script>*@
+    <script src="~/js/devextreme/vectormap-data/world.js"></script>
 
     <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
     <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
     <style>
         .footera {
-            margin-top:30%;
-            background-color:pink;
-            align-self:center;
-            align-self:center;
-            height:45px;
-            font:400;
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size:20px;
+            margin-top: 70%;
+            background-color: #B2B377;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 20px;
+            color:black;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-top: 2px solid #2C2C2C;
         }
+
+            .footera:hover {
+                background-color: #9E9E55;
+            }
     </style>
 </head>
 
@@ -86,21 +92,37 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a asp-controller="Home" asp-action="Index" class="nav-link active">არხების სია</a>
+                        <a asp-controller="Home" asp-action="Index" class="nav-link active">AllInOne</a>
                     </li>
-					<li class="nav-item">
-                        <a asp-controller="Transcoder" asp-action="Index" class="nav-link">ტრანსკოდერი</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Chanell" asp-action="Index" class="nav-link active">არხების სია</a>
                         </li>
-                    <li class="nav-item">
-                        <a asp-controller="Reciever" asp-action="Index" class="nav-link">რესივერი</a>
+                        <li class="nav-item">
+                            <a asp-controller="Transcoder" asp-action="Index" class="nav-link active">ტრანსკოდერი</a>
                         </li>
-                    <li class="nav-item">
-                        <a asp-controller="ChanellAlarm" asp-action="Index" class="nav-link">მთავარი მონიტორინგი</a>
-                    </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="ChanellAlarm" asp-action="Index" class="nav-link active">მთავარი მონიტორინგი</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="SatteliteChanells" asp-action="Index" class="nav-link active">სხვა წყაროების მონიტორინგი</a>
+                        </li>
+                    }
                 </ul>
-                <form asp-action="LogOut" asp-controller="User" method="get">
-                    <button type="submit" class="btn btn-secondary btn-block"> გამოსვლა</button>
-                </form>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form asp-action="LogOut" asp-controller="User" method="get">
+                    <button type="submit" class="btn btn-secondary"> გამოსვლა</button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-action="SignIn" asp-controller="User" method="get">
+                        <button type="submit" class="btn btn-secondary">ავტორიზაცია</button>
+                    </form>   
+                }
             </div>
         </div>
     </nav>
@@ -108,8 +130,9 @@
     <main class="container">
         @RenderBody()
     </main>
-</body>
+
 <footer class="footera">
-    <p align="center""">&copy; 2024 ყველა უფლება დაცულია, Developed By <a href="https://ge.linkedin.com/in/guga-apkhazava-938a40237">Guga</a></p>
+    <p align="center">&copy; 2024 ყველა უფლება დაცულია, Developed By <a href="https://ge.linkedin.com/in/guga-apkhazava-938a40237">Guga</a></p>
 </footer>
+</body>
 </html>

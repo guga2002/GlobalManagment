@@ -9,9 +9,10 @@ namespace Jandag.BLL.Models
 {
     public class SourceModel
     {
+        public int  Id { get; set; }
         public required string ChanellFormat { get; set; }
         public bool Status { get; set; }
-        public Guid ChanellId { get; set; }
-        public Guid Reciever_ID { get; set; }
+        public int ChanellId { get; set; }
+        public int? Reciever_ID { get; set; }
     }
 }

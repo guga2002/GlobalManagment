@@ -20,7 +20,6 @@ namespace Jandag.DLL.Data
         public virtual DbSet<Desclambler> Desclamblers { get; set; }
         public virtual DbSet<DesclamlerCard> DesclamlerCards { get; set; }
         public virtual DbSet<Emr60Info> Emr60Infos { get; set; }
-        public virtual DbSet<Reciever> Recievers { get; set; }
         public virtual DbSet<Source> Sources { get; set; }
         public virtual DbSet<Transcoder> Transcoders { get; set; }
     }

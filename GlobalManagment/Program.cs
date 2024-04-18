@@ -59,7 +59,6 @@ builder.Services.AddScoped<IChanellRepository,ChanellRepository>();
 builder.Services.AddScoped<IDesclamlerCard,DesclamlerCardRepository>();
 builder.Services.AddScoped<IDesclambler,DesclamblerRepository>();
 builder.Services.AddScoped<IEmr60Info,Emr60InfoRepository>();
-builder.Services.AddScoped<IRecieverInterface, RecieverRepository>();
 builder.Services.AddScoped<ISourceRepository, SourceRepository>();
 builder.Services.AddScoped<ITranscoderRepository, TranscoderReporitory>();
 builder.Services.AddScoped<IUniteOfWork, UniteOfWork>();
@@ -70,8 +69,13 @@ builder.Services.AddScoped<SignInManager<User>, SignInManagerForUser>();
 builder.Services.AddScoped<IUserService, CustomerServices>();
 builder.Services.AddScoped<IAllInOneService, AllInOneService>();
 builder.Services.AddScoped<ITranscoderService, TranscoderServices>();
+builder.Services.AddScoped <ISatteliteFrequencyService,SatteliteFrequencyService> ();
+builder.Services.AddScoped<ISatteliteFrequency, SatteliteFrequencyRepository>();
+builder.Services.AddScoped<IChanellServices, ChanellServices>();
 
+builder.Services.AddScoped<RoleManager<IdentityRole>>();
 builder.Services.AddScoped<IService,EmrServices>();
+builder.Services.AddScoped<IsourceServices, SourceService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
@@ -90,6 +94,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=User}/{action=SignIn}");
+    pattern: "{controller=User}/{action=Index}");
 
 app.Run();

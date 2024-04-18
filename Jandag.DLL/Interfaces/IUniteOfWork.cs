@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading.Tasks;  
 
 namespace Jandag.DLL.Interfaces
 {
@@ -15,10 +15,10 @@ namespace Jandag.DLL.Interfaces
         public IChanellRepository ChanellRepository { get; }
         public IDesclamlerCard desclamlerCardRepository { get; }
         public IDesclambler desclamblerRepository { get; }
-        public IRecieverInterface recieverRepository { get; }
         public IEmr60Info emr60InfoRepository { get; }
         public ISourceRepository sourceRepository { get; }
         public ITranscoderRepository transcoderRepository { get; }
+        public ISatteliteFrequency satteliterFrequencyRepository { get; }
         Task CommitAndSavechanges();
     }
 }

@@ -26,7 +26,20 @@ namespace Jandag.BLL.Services
                 var mod=new AllInOneModel();
                 mod.SourceIsActive = item.Status;
                 mod.ChanellFormat = item.ChanellFormat;
-             
+
+
+                if (item is not null)
+                {
+                    var rek = await work.satteliterFrequencyRepository.GetByIdIds(item.SatteliteId ?? 400);
+                    if (rek is not null)
+                    {
+                        mod.Frequency = $"{rek.Frequency} {rek.Polarisation} {rek.SymbolRate}  {rek.Degree}°";
+                    }
+                }
+                else
+                {
+                    mod.Frequency = "Undefined";
+                }
                 if(item.Transcoder is not null)
                 {
                     mod.TranscoderInfo = $"EMR:{item.Transcoder.EmrNumber} ->Card:{item.Transcoder.Card} ->Port:{item.Transcoder.Port}";
@@ -50,15 +63,6 @@ namespace Jandag.BLL.Services
                 else
                 {
                     mod.DesclamlerInfo = "Undefined";
-                }
-                if(item.Reciever is not null)
-                {
-                    mod.RecieverInfo = $"EMR:{item.Reciever.EmrNumber} -> Card:{item.Reciever.Card} -> Port:{item.Reciever.Port}";
-                    mod.Frequency=item.Reciever.Frequency;
-                }
-                else
-                {
-                    mod.RecieverInfo = "Undefined";
                 }
                model.Add(mod);
             }
