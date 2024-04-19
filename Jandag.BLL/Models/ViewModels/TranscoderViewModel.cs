@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,23 +10,25 @@ namespace Jandag.BLL.Models.ViewModels
 {
     public class TranscoderViewModel
     {
-        [Key]
-        public int Id { get; set; }
 
         [Display(Name = "არხის სახელი")]
-        public string CHanellName { get; set; }
-
-        [Display(Name = "ტრანსკოდირების ფორმატი")]
-        public string TransocdingFormat { get; set; }
+        public string Id { get; set; }
 
         [Display(Name = "იემერის მისამართი")]
-        public int EmrNumber { get; set; }
+        public string EmrNumber { get; set; }
 
         [Display(Name = "ქარდი")]
         public string Card { get; set; }
 
         [Display(Name = "პორტი")]
         public string Port { get; set; }
+
+        [Display(Name = "ტრანსკოდირების ფორმატი")]
+        public string TranscodingFormat { get; set; }
+
+        public List<SelectListItem> TranscodingFormatList { get; set; }
+        public List<SelectListItem> CHanellNameList { get; set; }
+        public List<SelectListItem> EmrNumberList { get; set; }
     }
 
    

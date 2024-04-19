@@ -9,5 +9,6 @@ namespace Jandag.BLL.Interface
 {
      public interface IsourceServices:IcrudService<SourceModel>
     {
+        Task<SourceModel> GetDropDOwnListData();
     }
 }

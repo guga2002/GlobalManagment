@@ -1,0 +1,12 @@
+﻿@using Jandag.BLL.Models
+@model DutyEnginerModel
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-controller="Enginer" asp-action="Insert" method="post">
+    <div class="form-group">
+        <label asp-for="SelectedOption">Select an option:</label>
+        <select asp-for="SelectedOption" asp-items="Model.OptionList" class="form-control"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

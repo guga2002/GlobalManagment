@@ -16,8 +16,6 @@ namespace Jandag.BLL.Models
         public char? Polarisation { get; set; }
         public int PortIn250 { get; set; }
         public bool HaveError { get; set; } = false;
-
-        public string chanellIds { get; set; }= "";
         public List<ChanellModel> chanellid { get; set; } = new List<ChanellModel>();
     }
 }

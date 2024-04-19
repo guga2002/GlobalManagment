@@ -72,29 +72,21 @@
         <form asp-action="Post" asp-controller="SatteliteChanells">
             <div class="form-group">
                 <label for="degree">გრადუსი</label>
-                <input type="text" class="form-control" name="Degree" id="degree" placeholder="მაგ: 80" />
-            </div>
-            <div class="form-group">
+                <input required type="text" class="form-control" name="Degree" id="degree" placeholder="მაგ: 80" />
+
                 <label for="frequency">სიხშირე</label>
-                <input type="number" name="Frequency" class="form-control" id="frequency" placeholder="მაგ: 11095" />
-            </div>
-            <div class="form-group">
+                <input required type="number" name="Frequency" class="form-control" id="frequency" placeholder="მაგ: 11095" />
+               
                 <label for="symbolRate">სისწრაფე</label>
-                <input type="number" class="form-control" name="SymbolRate" id="symbolRate" placeholder="მაგ: 27500" />
-            </div>
-            <div class="form-group">
+                <input required type="number" class="form-control" name="SymbolRate" id="symbolRate" placeholder="მაგ: 27500" />
+
                 <label for="polarisation">პოლარიზაცია</label>
-                <input type="text" class="form-control" name="Polarisation" id="polarisation" placeholder="მაგ: H, V, R, L" />
-            </div>
-            <div class="form-group">
+                <input required type="text" class="form-control" name="Polarisation" id="polarisation" placeholder="მაგ: H, V, R, L" />
+
                 <label for="portIn250">პორტი 250 იემერში</label>
                 <input type="number" class="form-control" name="PortIn250" id="portIn250" placeholder="მაგ: 137" />
-            </div>
-            <div class="form-group">
-                <label for="chanellIds">არხების სახელი:</label>
-                <input type="text" class="form-control" name="chanellIds" id="chanellIds" placeholder="მაგ: adjara, rustavi 2" />
-            </div>
             <button type="submit" class="btn btn-primary">დამატება</button>
+            </div>
         </form>
     </div>
 

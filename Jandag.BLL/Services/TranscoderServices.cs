@@ -3,6 +3,8 @@ using DDL.Database_Layer.Entities;
 using Jandag.BLL.Interface;
 using Jandag.BLL.Models.ViewModels;
 using Jandag.DLL.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Jandag.BLL.Services
 {
@@ -15,15 +17,15 @@ namespace Jandag.BLL.Services
         public async Task<bool> AddAsync(TranscoderViewModel Item)
         {
             
-            var source = await work.sourceRepository.GetById(Item.Id);
+            var source = await work.sourceRepository.GetById(int.Parse(Item.Id));
             if (source !=null)
             {
-                    source.ChanellFormat = Item.TransocdingFormat;
+                    source.ChanellFormat = Item.TranscodingFormat;
                     Transcoder trans = new Transcoder()
                     {
                         Port = int.Parse(Item.Port),
                         Card = int.Parse(Item.Card),
-                        EmrNumber = Item.EmrNumber,
+                        EmrNumber =int.Parse(Item.EmrNumber),
                         Source_ID=source.Id,
                          Source=source,
                     };
@@ -33,6 +35,71 @@ namespace Jandag.BLL.Services
             throw new ArgumentException("msgavsi arxi ar arsebobs");
         }
 
+
+        public async Task<TranscoderViewModel> GetDropDownList()
+        {
+            TranscoderViewModel vw = new TranscoderViewModel();
+
+            var res = await work.sourceRepository.GetAll();
+            vw.CHanellNameList = new List<SelectListItem>();
+            foreach (var item in res)
+            {
+                vw.CHanellNameList.Add(new SelectListItem()
+                {
+                    Text = $"{item.chanell.Name}-{item.ChanellFormat}",
+                    Value = item.Id.ToString(),
+                });
+            }
+            vw.TranscodingFormatList = new List<SelectListItem>();
+            vw.TranscodingFormatList.Add(new SelectListItem()
+            {
+                Text = "MPEG4-HD",
+                Value = "MPEG4-HD"
+            });
+            vw.TranscodingFormatList.Add(new SelectListItem()
+            {
+                Text = "MPEG4-SD",
+                Value = "MPEG4-SD"
+            });
+            vw.TranscodingFormatList.Add(new SelectListItem()
+            {
+                Text = "MPEG2-SD",
+                Value = "MPEG2-SD"
+            });
+            vw.EmrNumberList = new List<SelectListItem>()
+            { new SelectListItem()
+               {
+                Text="ასი",
+                Value="100"
+               },
+                new SelectListItem()
+               {
+                Text="ასათი",
+                Value="110"
+               },
+                 new SelectListItem()
+               {
+                Text="ასოცი",
+                Value="120"
+               },
+                   new SelectListItem()
+               {
+                Text="ასოცდაათი",
+                Value="130"
+               },
+                     new SelectListItem()
+               {
+                Text="ორასი",
+                Value="200"
+               },
+                           new SelectListItem()
+               {
+                Text="ორასოცდაათი",
+                Value="230"
+               },
+            };
+            return vw;
+        }
         public async Task<bool> Delete(int id)
         {
             try
@@ -58,10 +125,9 @@ namespace Jandag.BLL.Services
                     {
                         Card = item.Card.ToString(),
                         Port = item.Port.ToString(),
-                        EmrNumber = item.EmrNumber,
-                        TransocdingFormat = item.Source.ChanellFormat,
-                        CHanellName = item.Source.chanell.Name,
-                        Id=item.Id,
+                        EmrNumber = item.EmrNumber.ToString(),
+                        TranscodingFormat = item.Source.ChanellFormat,
+                        Id = item.Source.chanell.Name,
                     };
                     view.Add(nk);
                 }

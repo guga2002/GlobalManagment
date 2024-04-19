@@ -4,6 +4,7 @@ using Jandag.BLL.Interface;
 using Jandag.BLL.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GlobalManagment.Controllers
 {
@@ -24,12 +25,13 @@ namespace GlobalManagment.Controllers
         [HttpPut]
         public IActionResult Update(TranscoderViewModel mod)
         {
-            throw new ArgumentException("gaajvii");
+            throw new ArgumentException("Go away  from me");
         }
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            return View();
+            var res = await ser.GetDropDownList();
+            return View(res);
         }
 
         [HttpPost]
@@ -38,7 +40,6 @@ namespace GlobalManagment.Controllers
 
             try
             {
-
                 var res = await ser.AddAsync(mod);
                 if (res)
                 {
@@ -49,9 +50,8 @@ namespace GlobalManagment.Controllers
             }
             catch (Exception exp)
             {
-                return RedirectToAction("Add");
-
                 TempData["Error"] = exp.Message;
+                return RedirectToAction("Add");
             }
         }
 

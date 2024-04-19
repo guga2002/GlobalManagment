@@ -90,24 +90,21 @@
         <h2>არხის დამატება ტრანსკოდერში</h2>
         <form asp-action="Insert" asp-controller="Transcoder">
             <div class="form-group">
-                <label for="Id">წყაროს იდენტიფიკატორი</label>
-                <input required type="number" class="form-control" asp-for="Id" id="Id" placeholder="მაგ: 34" />
+                <label asp-for="Id">წყარო</label>
+                <select asp-for="Id" asp-items="Model.CHanellNameList" class="form-control"></select>
             </div>
             <div class="form-group">
-                <label for="TransocdingFormat">ტრანსკოდირების ფორმატი</label>
-                <input type="text" asp-for="TransocdingFormat" class="form-control" id="TransocdingFormat" placeholder="მაგ: MPEG4,HD" />
-            </div>
-            <div class="form-group">
-                <label for="EmrNumber">EMR</label>
-                <input type="number" class="form-control" asp-for="EmrNumber" id="EmrNumber" placeholder="მაგ: 200" />
-            </div>
-            <div class="form-group">
+                <label asp-for="TranscodingFormat">ტრანსკოდირების ფორმატი</label>
+                <select asp-for="TranscodingFormat" asp-items="Model.TranscodingFormatList" class="form-control"></select>
+
+                <label asp-for="EmrNumber">EMR</label>
+                <select asp-for="EmrNumber" asp-items="Model.EmrNumberList" class="form-control"></select>
+
                 <label for="Card">ქარდი</label>
-                <input type="number" class="form-control" asp-for="Card" id="Card" placeholder="მაგ: 4" />
-            </div>
-            <div class="form-group">
+                <input required type="number" class="form-control" asp-for="Card" id="Card" placeholder="მაგ: 4" />
+
                 <label for="Port">პორტი</label>
-                <input type="number" class="form-control" asp-for="Port" id="Port" placeholder="მაგ:5" />
+                <input type="number" required class="form-control" asp-for="Port" id="Port" placeholder="მაგ:5" />
             </div>
             <button type="submit" class="btn btn-primary">დამატება</button>
         </form>

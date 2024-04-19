@@ -2,6 +2,8 @@
 using Jandag.BLL.Interface;
 using Jandag.BLL.Models;
 using Jandag.DLL.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace Jandag.BLL.Services
 {
@@ -81,6 +83,45 @@ namespace Jandag.BLL.Services
         public Task<bool> UpdateAsync(SourceModel item)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<SourceModel> GetDropDOwnListData()
+        {
+            var sour = new SourceModel()
+            { ChanellFormat="Undefined"};
+
+            sour.StatusList = new List<SelectListItem>()
+            {
+                new SelectListItem("აქტიური","1"),
+                new SelectListItem("რეზერვი","0")
+            };
+            sour.CHanellFormatList = new List<SelectListItem>()
+            {
+                new SelectListItem("MPEG2 SD","MPEG2 SD"),
+                  new SelectListItem("MPEG4 SD","MPEG4 SD"),
+                  new SelectListItem("MPEG4 HD","MPEG4 HD")
+            };
+            var chanells=await work.ChanellRepository.GetAll();
+            sour.ChanellList = new List<SelectListItem>();
+            foreach (var item in chanells)
+            {
+                sour.ChanellList.Add(new SelectListItem()
+                {
+                    Text = item.Name,
+                    Value = item.Id.ToString(),
+                });
+            }
+            sour.RecieverList = new List<SelectListItem>();
+            var recieve=await work.satteliterFrequencyRepository.GetAll();
+            foreach (var item in recieve)
+            {
+                sour.RecieverList.Add(new SelectListItem()
+                {
+                    Text = $"{item.Degree}-{item.Frequency} {item.Polarisation} {item.SymbolRate}",
+                    Value = item.Id.ToString(),
+                }) ;
+            }
+            return sour;
         }
     }
 }

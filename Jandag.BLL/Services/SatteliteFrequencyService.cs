@@ -17,19 +17,8 @@ namespace Jandag.BLL.Services
         {
             try
             {
-                List<Source> chan = new List<Source>();
-
-                var chanIds = Item.chanellIds.Split(',');
-
-                foreach (var it in chanIds)
-                {
-                    var chane=await  work.sourceRepository.GetBychanellName(it.ToLower());
-                    if (chane is not null)
-                        chan.Add(chane);
-                }
                 var sattelit = new SatteliteFrequency()
                 {
-                    Sources = chan,
                     Degree = Item.Degree,
                     Frequency = Item.Frequency,
                     Polarisation = Item.Polarisation,
@@ -71,6 +60,7 @@ namespace Jandag.BLL.Services
                 {
                     mod.Add(new SatteliteFrequencyModel()
                     {
+                        Degree=item.Degree,
                         Frequency = item.Frequency,
                         Polarisation = item.Polarisation,
                         SymbolRate = item.SymbolRate,

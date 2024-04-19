@@ -18,9 +18,10 @@ namespace GlobalManagment.Controllers
             return View(res);
         }
 
-        public  IActionResult Add()
+        public  async Task<IActionResult> Add()
         {
-            return View();
+            var re = await ser.GetDropDOwnListData();
+            return View(re);
         }
 
         [HttpPost]

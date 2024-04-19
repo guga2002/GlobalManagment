@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Jandag.DLL\Jandag.DLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\PageVIewModel\" />
+  </ItemGroup>
+
 </Project>

@@ -90,17 +90,17 @@
         <h2>არხის დამატება</h2>
         <form asp-action="Insert" asp-controller="Source" method="post">
             <div class="form-group">
-                <label for="ChanellFormat">არხის ფორმატი</label>
-                <input type="text" class="form-control" asp-for="ChanellFormat" placeholder="მაგ: HD" />
+                <label asp-for="ChanellFormat">ფორმატი</label>
+                <select asp-for="ChanellFormat" asp-items="Model.CHanellFormatList" class="form-control"></select>
 
-                <label for="Status">სტატუსი</label>
-                <input type="number" class="form-control" asp-for="Status" placeholder="მაგ:1-yes" />
+                <label asp-for="Status">სტატუსი</label>
+                <select asp-for="Status" asp-items="Model.StatusList" class="form-control"></select>
 
-                <label for="Reciever_ID">მიმღების იდენტიფიკატორი</label>
-                <input type="number" class="form-control" asp-for="Reciever_ID" placeholder="მაგ: 2" />
+                <label asp-for="Reciever_ID">მიმღების იდენტიფიკატორი</label>
+                <select asp-for="Reciever_ID" asp-items="Model.RecieverList" class="form-control"></select>
 
-                <label for="ChanellId">არხის იდენტიფიკატორი</label>
-                <input type="number" class="form-control" asp-for="ChanellId" placeholder="მაგ: 3" />
+                <label asp-for="ChanellId">არხის იდენტიფიკატორი</label>
+                <select asp-for="ChanellId" asp-items="Model.ChanellList" class="form-control"></select>
             </div>
             <button type="submit" class="btn btn-primary">დამატება</button>
         </form>

@@ -63,7 +63,7 @@
     @(
         Html.DevExtreme().DataGrid<AllInOneModel>()
         .ShowBorders(true)
-        .DataSource(d => d.Mvc().Controller("SampleData").LoadAction("Get"))
+        .DataSource(d => d.Mvc().Controller("Home").LoadAction("Get"))
         .Columns(columns =>
         {
             columns.AddFor(m => m.ChanellName);
