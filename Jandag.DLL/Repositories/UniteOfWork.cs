@@ -2,7 +2,6 @@
 using Interfaces;
 using Jandag.DLL.Data;
 using Jandag.DLL.Interfaces;
-using Jandag.DLL.Repositories.UserRelated;
 using Repositories;
 using Speaker.leison.Database_Layer.Interfaces;
 using Speaker.leison.Database_Layer.Repositories;

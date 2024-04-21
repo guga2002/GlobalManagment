@@ -5,24 +5,18 @@ using Jandag.BLL.Models;
 using Jandag.BLL.Validation.Regexs;
 using Jandag.DLL.Entities;
 using Jandag.DLL.Interfaces;
-using Jandag.DLL.Repositories.UserRelated;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Jandag.BLL.Services
 {
     public class CustomerServices:AbstractService,IUserService
     {
-        private readonly SignInManagerForUser signin;
-        private readonly UserManager userManager;
-        public CustomerServices(SignInManagerForUser signin,UserManager manag,IUniteOfWork wor,IMapper map):base(map,wor)
+        private readonly SignInManager<User> signin;
+        private readonly UserManager<User> userManager;
+        public CustomerServices(SignInManager<User> signin, UserManager<User> userManager, IUniteOfWork wor,IMapper map):base(map,wor)
         {
             this.signin = signin;
-            this.userManager = manag;
+            this.userManager = userManager;
         }
 
         public async Task<bool> SignIn(SignInModel sign)

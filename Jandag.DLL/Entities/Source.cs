@@ -26,5 +26,9 @@ namespace Jandag.DLL.Entities
         [ForeignKey("sattelite")]
         public int?  SatteliteId { get; set; }
         public SatteliteFrequency sattelite { get; set; }
+        public string sourceName { get; set; }
+        public string card { get; set; }
+        public string port { get; set; }
+        public int EmrNumber { get; set; }
     }
 }

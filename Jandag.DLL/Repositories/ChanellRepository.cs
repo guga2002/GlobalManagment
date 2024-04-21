@@ -18,12 +18,38 @@ namespace Repositories
             chanells = this.database.Set<Chanell>();
         }
 
+        public async Task<bool> addSource(string name,Source sr)
+        {
+            var chanel=chanells.Where(io=>io.Name==name).FirstOrDefault();  
+            if(chanel is not null)
+            {
+                if (!chanel.Sources.Any(io => io.EmrNumber == sr.EmrNumber && io.port == sr.port && io.card == sr.card))
+                {
+                    if (!chanel.Sources.Any(io => io.sourceName == sr.sourceName))
+                    {
+                        chanel.Sources.Add(sr);
+                        await database.SaveChangesAsync();
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public async Task Add(Chanell item)
         {
-            if(! await chanells.AnyAsync(IO=>IO.Name == item.Name))
+            if (!await chanells.AnyAsync(IO => IO.Name == item.Name||IO.Id==item.Id))
             {
-               await chanells.AddAsync(item);
+                await chanells.AddAsync(item);
                 await database.SaveChangesAsync();
+            }
+            else
+            {
+                var chan = await chanells.FirstOrDefaultAsync(IO => IO.Id == item.Id);
+                if (chan is not null)
+                {
+                    chan.Name = item.Name;
+                    await database.SaveChangesAsync();
+                }
             }
         }
 
@@ -64,6 +90,12 @@ namespace Repositories
                 chanells.Entry(cha).CurrentValues.SetValues(item);
                 await database.SaveChangesAsync();
             }
+        }
+
+        public async Task<Chanell> GetCHanellByName(string name)
+        {
+
+           return await chanells.FirstOrDefaultAsync(io=>io.Name.ToLower() == name.ToLower());
         }
     }
 }

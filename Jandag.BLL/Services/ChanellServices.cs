@@ -80,5 +80,14 @@ namespace Jandag.BLL.Services
         {
             throw new NotImplementedException();
         }
+        public async Task<Chanell> GetCHanellByName(string name)
+        {
+           return await work.ChanellRepository.GetCHanellByName(name);
+        }
+
+        public async Task<bool> addSource(string name, Source sr)
+        {
+            return await work.ChanellRepository.addSource(name, sr);
+        }
     }
 }

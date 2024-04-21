@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GlobalManagment.Controllers
 {
-    [Authorize]
     public class ChanellAlarmController : Controller
     {
         private readonly IService ser;

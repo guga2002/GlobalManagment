@@ -1,4 +1,5 @@
-﻿using Jandag.Persistance.Interface;
+﻿using Jandag.BLL.Models.PageVIewModel;
+using Jandag.Persistance.Interface;
 using System.Text.RegularExpressions;
 
 namespace Jandag.Persistance.Services
@@ -127,6 +128,85 @@ namespace Jandag.Persistance.Services
                 await Console.Out.WriteLineAsync( ex.Message);
                 return null;
             }
+        }
+        public async Task<IEnumerable<SourceFromEMRModel>> GetEmrChanells(string emrcode)
+        {
+
+            var chanells = await GetChanellNames();
+
+            List<SourceFromEMRModel> lst = new List<SourceFromEMRModel>();
+
+            using (var res = new HttpClient())
+            {
+
+                var rek = await res.GetAsync($"http://192.168.20.{emrcode}/mux/mux_config_en.asp");
+
+
+                var str = await rek.Content.ReadAsStringAsync();
+
+                var reki = str.Split(new string[] { "zOutNode7", "var language" }, StringSplitOptions.RemoveEmptyEntries);
+                List<string> list = new List<string>();
+                list.AddRange(reki[1].Split('\n'));
+
+                foreach (var item in chanells)
+                {
+                    SourceFromEMRModel sor = new SourceFromEMRModel();
+
+                    var rel = list.Where(io => io.ToLower().Contains(item.Value.ToLower())).ToList();
+
+                    foreach (var it in rel)
+                    {
+                        if (rel.Count() > 0)
+                        {
+                            var lef = ExtractName(rel[0]);
+                            sor.name = item.Value;
+                            var splited = lef.Split('(', ')');
+                            if (splited.Length > 1)
+                            {
+                                sor.sourceName = splited[1];
+                            }
+                            else
+                            {
+                                sor.sourceName = "_";
+                            }
+                            sor.card = ExtractCard(rel[0]);
+                            sor.port = ExtractPort(rel[0]);
+                        }
+                    }
+                    lst.Add(sor);
+                }
+            }
+            return lst;
+        }
+        static string ExtractName(string input)
+        {
+            Match match = Regex.Match(input, @"name:""([^""]+)""");
+            if (match.Success)
+            {
+                return match.Groups[1].Value.Split("(SID")[0];
+            }
+            return "";
+        }
+
+
+        static string ExtractCard(string input)
+        {
+            Match match = Regex.Match(input, @"Card(\d+)");
+            if (match.Success)
+            {
+                return match.Groups[1].Value;
+            }
+            return "";
+        }
+
+        static string ExtractPort(string input)
+        {
+            Match match = Regex.Match(input, @"Port(\d+)");
+            if (match.Success)
+            {
+                return match.Groups[1].Value;
+            }
+            return "";
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Jandag.BLL.Interface;
 using Jandag.BLL.Models;
 using Jandag.BLL.Models.ViewModels;
+using Jandag.Persistance.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -9,15 +10,32 @@ namespace GlobalManagment.Controllers
     public class SatteliteChanellsController : Controller
     {
         private readonly ISatteliteFrequencyService ser;
-
-        public SatteliteChanellsController(ISatteliteFrequencyService se)
+        private readonly IService chanells;
+        public SatteliteChanellsController(ISatteliteFrequencyService se, IService chanells)
         {
             this.ser = se;
+            this.chanells = chanells;
         }
 
         public async Task<IActionResult> Index()
         {
-            var res=await ser.GetMonitoringFrequencies();
+            var res = await ser.GetMonitoringFrequencies();
+            var ports = await chanells.GetPortsWhereAlarmsIsOn();
+            foreach (var item in res)
+            {
+                foreach (var it in item.details)
+                {
+                    if (ports.Contains(it.PortIn250))
+                    {
+                        it.HaveError = true;
+                    }
+                    else
+                    {
+                        it.HaveError = false;
+                    }
+
+                }
+            }
             return View(res);
         }
 
@@ -47,7 +65,7 @@ namespace GlobalManagment.Controllers
             }
         }
 
-        public  async Task<IActionResult> Details()
+        public async Task<IActionResult> Details()
         {
             List<FrequencyDeleteModel> mod = new List<FrequencyDeleteModel>();
             var res = await ser.GetAllAsync();
@@ -82,7 +100,7 @@ namespace GlobalManagment.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewAdditionalDetails(int frequency)
         {
-            var mod=await ser.GetDetailsByEmrport(frequency);
+            var mod = await ser.GetDetailsByEmrport(frequency);
             return View(mod);
         }
     }

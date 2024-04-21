@@ -1,6 +1,5 @@
 ﻿using DatabaseOperations.Interfaces;
 using Interfaces;
-using Jandag.DLL.Repositories.UserRelated;
 using Speaker.leison.Database_Layer.Interfaces;
 using System;
 using System.Collections.Generic;

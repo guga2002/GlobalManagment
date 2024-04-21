@@ -14,11 +14,11 @@ namespace GlobalManagment.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var res=await ser.GetAllAsync();
+            var res = await ser.GetAllAsync();
             return View(res);
         }
 
-        public  async Task<IActionResult> Add()
+        public async Task<IActionResult> Add()
         {
             var re = await ser.GetDropDOwnListData();
             return View(re);
@@ -27,8 +27,13 @@ namespace GlobalManagment.Controllers
         [HttpPost]
         public async Task<IActionResult> Insert(SourceModel mod)
         {
-           var res=await ser.AddAsync(mod);
-            if(res)
+            mod.port = "Undefined";
+            mod.card = "Undefined";
+            mod.sourceName = "Undefined";
+            mod.EMR = "200";
+            mod.Status = false;
+            var res = await ser.AddAsync(mod);
+            if (res)
             {
                 return RedirectToAction("Index");
             }
@@ -38,8 +43,8 @@ namespace GlobalManagment.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-           var res=await ser.Delete(id);
-            if(res)
+            var res = await ser.Delete(id);
+            if (res)
             {
                 return RedirectToAction("Index");
             }

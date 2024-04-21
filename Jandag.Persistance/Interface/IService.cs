@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jandag.BLL.Models.PageVIewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace Jandag.Persistance.Interface
     {
         Task<Dictionary<int, string>> GetChanellNames();
         Task<List<int>> GetPortsWhereAlarmsIsOn();
+        Task<IEnumerable<SourceFromEMRModel>> GetEmrChanells(string emrcode);
     }
 }

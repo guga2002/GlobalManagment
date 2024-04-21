@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Jandag.BLL.Interface;
-using Microsoft.AspNetCore.Authorization;
+using Jandag.Persistance.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GlobalManagment.Controllers
@@ -13,17 +9,30 @@ namespace GlobalManagment.Controllers
     public class HomeController : Controller
     {
         private readonly IAllInOneService ser;
-        public HomeController(IAllInOneService ser)
+        private readonly IChanellServices chanellser;
+        private readonly IService names;
+        public HomeController(IAllInOneService ser, IChanellServices chanellser, IService names)
         {
             this.ser = ser;
+            this.chanellser = chanellser;
+            this.names = names;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var res = await names.GetChanellNames();
+            foreach (var item in res)
+            {
+                await chanellser.AddAsync(new Jandag.BLL.Models.ChanellModel()
+                {
+                    Name = item.Value
+                });
+            }
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error() {
+        public IActionResult Error()
+        {
             return View();
         }
         [HttpGet]

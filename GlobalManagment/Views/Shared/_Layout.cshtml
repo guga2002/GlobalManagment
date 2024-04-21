@@ -60,6 +60,9 @@
     <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
     <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
     <style>
+        body{
+            background-color: #B2B377;
+        }
         .footera {
             margin-top: 70%;
             background-color: #B2B377;
@@ -102,14 +105,14 @@
                         <li class="nav-item">
                             <a asp-controller="Transcoder" asp-action="Index" class="nav-link active">ტრანსკოდერი</a>
                         </li>
-
+                    }
                         <li class="nav-item">
                             <a asp-controller="ChanellAlarm" asp-action="Index" class="nav-link active">მთავარი მონიტორინგი</a>
                         </li>
                         <li class="nav-item">
                             <a asp-controller="SatteliteChanells" asp-action="Index" class="nav-link active">სხვა წყაროების მონიტორინგი</a>
                         </li>
-                    }
+   
                 </ul>
                 @if (User.Identity.IsAuthenticated)
                 {

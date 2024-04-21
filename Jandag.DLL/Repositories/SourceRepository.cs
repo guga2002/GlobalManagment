@@ -22,7 +22,7 @@ namespace Jandag.DLL.Repositories
 
         public async Task Add(Source item)
         {
-            if (!await source.AnyAsync(io => io.Id==item.Id))
+            if (!await source.AnyAsync(io => io.ChanellId==item.ChanellId))
             {
                 await source.AddAsync(item);
                 await database.SaveChangesAsync();

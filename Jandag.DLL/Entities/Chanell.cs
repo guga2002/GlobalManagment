@@ -15,6 +15,6 @@ namespace DDL.Database_Layer.Entities
     { 
         [Column("Name_Of_Chanell")]
         public  string Name { get; set; }
-        public virtual  IEnumerable<Source> Sources { get; set; }
+        public  List<Source> Sources { get; set; }=new List<Source>();
     }
 }

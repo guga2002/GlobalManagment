@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using DDL.Database_Layer.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,5 +21,9 @@ namespace Jandag.BLL.Models
         public List<SelectListItem> ChanellList { get; set; }
         public List<SelectListItem> StatusList { get; set; }
         public List<SelectListItem> CHanellFormatList { get; set; }
+        public string EMR { get; set; } = "Undefined";
+        public string sourceName { get; set; } = "Undefined";
+        public string card { get; set; } = "Undefined";
+        public string port { get; set; } = "Undefined";
     }
 }

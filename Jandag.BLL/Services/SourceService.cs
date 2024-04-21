@@ -3,7 +3,6 @@ using Jandag.BLL.Interface;
 using Jandag.BLL.Models;
 using Jandag.DLL.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace Jandag.BLL.Services
 {
@@ -21,14 +20,18 @@ namespace Jandag.BLL.Services
 
                 if (channel == null)
                 {
-                    throw new ArgumentException("Channel does not exist");
+                    throw new ArgumentException("Arxi ar aris");
+                    //return false;
                 }
                 var satellite = await work.satteliterFrequencyRepository.GetByIdIds(item.Reciever_ID ?? 100);
                 var source = new DLL.Entities.Source()
                 {
                     ChanellFormat = item.ChanellFormat,
                     Status = true,
-                   // chanell = channel,
+                   sourceName=item.sourceName,
+                   card=item.card,
+                   EmrNumber=int.Parse(item.EMR),
+                   port=item.port,
                     ChanellId=item.ChanellId,
                 };
 

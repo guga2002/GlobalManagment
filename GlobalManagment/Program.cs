@@ -7,7 +7,6 @@ using Jandag.DLL.Data;
 using Jandag.DLL.Entities;
 using Jandag.DLL.Interfaces;
 using Jandag.DLL.Repositories;
-using Jandag.DLL.Repositories.UserRelated;
 using Jandag.Persistance.Interface;
 using Jandag.Persistance.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,8 +32,6 @@ builder.Services.AddDbContext<GlobalTvDb>(opt =>
 
 builder.Services.AddIdentity<User, IdentityRole>().
     AddEntityFrameworkStores<GlobalTvDb>()
-    .AddUserManager<UserManager>()
-    .AddSignInManager<SignInManagerForUser>()
     .AddDefaultTokenProviders();
 
     builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -63,8 +60,6 @@ builder.Services.AddScoped<ISourceRepository, SourceRepository>();
 builder.Services.AddScoped<ITranscoderRepository, TranscoderReporitory>();
 builder.Services.AddScoped<IUniteOfWork, UniteOfWork>();
 
-builder.Services.AddScoped< UserManager<User>,UserManager>();
-builder.Services.AddScoped<SignInManager<User>, SignInManagerForUser>();
 
 builder.Services.AddScoped<IUserService, CustomerServices>();
 builder.Services.AddScoped<IAllInOneService, AllInOneService>();

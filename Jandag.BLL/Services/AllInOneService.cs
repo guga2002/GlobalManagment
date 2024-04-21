@@ -50,13 +50,13 @@ namespace Jandag.BLL.Services
                 }
                 if(item.chanell is not null)
                 {
-                    mod.ChanellName = item.chanell.Name;
+                    mod.ChanellName = item.chanell.Name+' '+item.sourceName;
                 }
                 else
                 {
                     mod.ChanellName = "Undefined";
                 }
-                if(item.Desclambler is not null)
+                if (item.Desclambler is not null)
                 {
                     mod.DesclamlerInfo = $"EMR:{item.Desclambler.EmrNumber} -> Card:{item.Desclambler.Card} -> Port:{item.Desclambler.Port}";
                 }
