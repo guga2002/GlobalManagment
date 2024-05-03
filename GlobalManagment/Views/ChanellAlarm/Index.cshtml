@@ -8,6 +8,7 @@
 {
     var defaultModel = new EmrServices();
     // You may need to initialize the properties of the default model here
+    //change
     Model.ports = await defaultModel.GetPortsWhereAlarmsIsOn();
     Model.namees = await defaultModel.GetChanellNames();
 }
