@@ -1,0 +1,240 @@
+﻿@using Jandag.BLL.Models;
+@using Jandag.Persistance.Services
+@model UniteModel
+@{
+    Layout = null;
+}
+@if (Model == null)
+{
+    var defaultModel = new EmrServices();
+    Model.chyanellnameandalarm.ports = await defaultModel.GetPortsWhereAlarmsIsOn();
+    Model.chyanellnameandalarm.namees = await defaultModel.GetChanellNames();
+}
+<head>
+
+
+    <style>
+
+        body {
+            margin-top: 0px;
+            background-color: #D2D180;
+            width: 100%;
+            height: 100%;
+        }
+
+        .h1 {
+            margin-bottom: 100px;
+        }
+
+        .container {
+            margin-top:4em;
+            flex: 2;
+            max-width: 100%;
+            min-height: 100%;
+            background-color: #D2D180;
+            margin-left:2em;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .button {
+            margin: 2px 2px 2px 2px;
+            min-width: 220px;
+            min-height: 40px;
+            background-color: green;
+            color: white;
+            font-weight: 400;
+            font-size: 18px;
+            border-radius: 200px;
+            width: 3.2em;
+            height: 3.2em;
+        }
+
+        .header {
+            position: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #B2B377;
+            color: white;
+            text-align: center;
+        }
+
+        .button.red {
+            background-color: red;
+            font-weight: 500;
+            color: black;
+        }
+
+        .button.yellow {
+            background-color: darkolivegreen;
+            color: black;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+
+        .button:hover {
+            background-color: black;
+            color: red;
+            opacity: 1;
+        }
+
+
+        .button.buttonIko {
+            margin: 2px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 16px;
+            border-radius: 40px;
+            padding: 5px 10px;
+            background-color: green;
+            color: white;
+            font-weight: 600;
+            width: 2em;
+            height: 2.5em;
+        }
+
+            .button.buttonIko.red {
+                background-color: red;
+            }
+
+            .button.buttonIko:hover {
+                background-color: black;
+                font-weight: bolder;
+                color: red;
+            }
+
+        .containera {
+            padding: 20px;
+            display: inline-flex;
+            flex-wrap: wrap;
+            min-width: 98%;
+            gap: 12px;
+            justify-content: flex-start;
+            background-color: #B2B377;
+            width: 100%;
+            margin-top: 5em;
+        }
+
+        .card {
+            width: calc(3%);
+            /*  height:auto; */
+            flex: auto;
+            display:flex;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #D2D180;
+        }
+
+        .card-title {
+            font-size: 20px;
+            margin-bottom: -5px;
+            margin-left: 45%;
+        }
+
+        .btn-group {
+            display:block;
+        flex-wrap:wrap;
+        }
+
+        .Gaakete {
+            margin-left: 40px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <script>
+        function refreshPage() {
+            location.reload();
+        }
+        setInterval(refreshPage, 3000);
+    </script>
+    <div class="container">
+        <div class="button-group">
+            @{
+                int i = 0;
+                int j = 0;
+            }
+            @foreach (var item in Model.chyanellnameandalarm.namees)
+            {
+                var buttonColorss = "green";
+                if (j < Model.chyanellnameandalarm.ports.Count)
+                {
+                    if (i >= 92)
+                    {
+                        if (Model.chyanellnameandalarm.ports[j] == i + 2)
+                        {
+
+                            buttonColorss = "red";
+                            j++;
+                        }
+                    }
+                    else
+                    if (Model.chyanellnameandalarm.ports[j] == i + 1)
+                    {
+
+                        buttonColorss = "red";
+                        j++;
+
+                    }
+
+                }
+                if (item.Value.Equals("Test"))
+                {
+                    buttonColorss = "yellow";
+                }
+                <form method="post" asp-controller="ChanellAlarm" asp-action="HandleButtonClick" asp-route-buttonId="@item.Value">
+                    <button type="submit" id="button@(item.Key)" class="btn btn-primary button @(buttonColorss)">@item.Key. @item.Value</button>
+                </form>
+                i++;
+            }
+        </div>
+
+
+    @{
+        string cvlad = "green";
+    }
+    <div class="containera">
+        @foreach (var monitoring in Model.satelliteview)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">@monitoring.Degree</h4>
+                    <div class="btn-group" role="group" aria-label="Frequency Buttons">
+                        @foreach (var detail in monitoring.details)
+                        {
+                            if (detail.HaveError)
+                            {
+                                cvlad = "red";
+                            }
+                            else
+                            {
+                                cvlad = "green";
+                            }
+                            var buttonId = $"{detail.Frequency}_{detail.Polarisation}_{detail.SymbolRate}";
+                            <form method="get" asp-action="ViewAdditionalDetails" asp-asp-controller="SatteliteChanells" class="Gaakete">
+                                <input type="hidden" name="frequency" value="@detail.PortIn250" />
+                                <button type="submit" id="@buttonId" class="btn btn-primary button @cvlad buttonIko">
+                                    @($"{detail.Frequency} {detail.Polarisation} {detail.SymbolRate}")
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
