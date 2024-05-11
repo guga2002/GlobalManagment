@@ -24,6 +24,9 @@ namespace Jandag.BLL.Services
                     Polarisation = Item.Polarisation,
                     SymbolRate = Item.SymbolRate,
                     PortIn250 = Item.PortIn250,
+                    EmrNumber=Item.EmrNumber,
+                    CardNumber=Item.CardNumber,
+                    portNumber=Item.portNumber,
                 };
                 await work.satteliterFrequencyRepository.Add(sattelit);
                 return true;
@@ -58,14 +61,34 @@ namespace Jandag.BLL.Services
 
                 foreach (var item in res)
                 {
-                    mod.Add(new SatteliteFrequencyModel()
+                    var re=new SatteliteFrequencyModel()
                     {
                         Degree=item.Degree,
                         Frequency = item.Frequency,
                         Polarisation = item.Polarisation,
                         SymbolRate = item.SymbolRate,
                         PortIn250 = item.PortIn250,
-                    });
+                    };
+                    if (item.EmrNumber > 0 && item.CardNumber >= 0)
+                    {
+                        Random ran = new Random();
+                        using (var htpserver = new HttpClient())
+                        {
+                            var response = await htpserver.GetAsync($"http://192.168.20.{item.EmrNumber}/goform/formEMR30?type=2&cmd=1&language=0&slotNo={item.CardNumber - 1}&portNo={item.portNumber - 1}&ran=0.99{ran.Next()}");
+                            var cont=await response.Content.ReadAsStringAsync();
+                            var splited = cont.Split(new string[] { "<*1*>", "<html>", "</html>" }, StringSplitOptions.None);
+                            if (splited[0].ToLower()== "unlock")
+                            {
+                                re.HaveError= true;
+                               
+                            }
+                            else
+                            {
+                                re.mer = splited[4];
+                            }
+                        }
+                    }
+                    mod.Add(re);
                 }
                 return mod;
             }
@@ -114,15 +137,35 @@ namespace Jandag.BLL.Services
 
                     foreach (var item in group)
                     {
-                        mon.details.Add(new SatteliteFrequencyModel()
+                        //mon.details.Add
+                        var mod = new SatteliteFrequencyModel()
                         {
                             HaveError = false,
                             PortIn250 = item.PortIn250,
                             Frequency = item.Frequency,
                             Polarisation = item.Polarisation,
                             SymbolRate = item.SymbolRate,
-                          
-                        });
+                        };
+
+                        if (item.EmrNumber > 0 && item.CardNumber >= 0)
+                        {
+                            Random ran = new Random();
+                            using (var htpserver = new HttpClient())
+                            {
+                                var response = await htpserver.GetAsync($"http://192.168.20.{item.EmrNumber}/goform/formEMR30?type=2&cmd=1&language=0&slotNo={item.CardNumber - 1}&portNo={item.portNumber - 1}&ran=0.99{ran.Next()}");
+                                var cont = await response.Content.ReadAsStringAsync();
+                                var splited = cont.Split(new string[] { "<*1*>", "<html>", "</html>" }, StringSplitOptions.None);
+                                if (splited[0].ToLower().Equals( "unlock"))
+                                {
+                                    mod.HaveError = true;
+                                }
+                                else
+                                {
+                                    mod.mer = splited[4];
+                                }
+                            }
+                        }
+                        mon.details.Add(mod);
                     }
 
                     monitor.Add(mon);

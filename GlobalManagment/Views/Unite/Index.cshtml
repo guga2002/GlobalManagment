@@ -222,7 +222,8 @@
                             <form method="get" asp-action="ViewAdditionalDetails" asp-asp-controller="SatteliteChanells" class="Gaakete">
                                 <input type="hidden" name="frequency" value="@detail.PortIn250" />
                                 <button type="submit" id="@buttonId" class="btn btn-primary button @cvlad buttonIko">
-                                    @($"{detail.Frequency} {detail.Polarisation} {detail.SymbolRate}")
+                                        @($@"{detail.Frequency} {detail.Polarisation} {detail.SymbolRate} ")
+                                        <span style="color: black; font-size: 20px;font-weight:bolder;margin-left:3px;">@(detail.mer)</span>
                                 </button>
                             </form>
                         }

@@ -34,7 +34,7 @@ namespace GlobalManagment.Controllers
                     }
                     else
                     {
-                        it.HaveError = false;
+                       it.HaveError = false;
                     }
 
                 }
