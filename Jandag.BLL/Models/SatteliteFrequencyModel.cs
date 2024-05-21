@@ -10,9 +10,9 @@ namespace Jandag.BLL.Models
     public class SatteliteFrequencyModel
     {
         public int  Id { get; set; }
-        public string? Degree { get; set; }
-        public int Frequency { get; set; }
-        public int SymbolRate { get; set; }
+        public  string? Degree { get; set; }
+        public string? Frequency { get; set; }
+        public string? SymbolRate { get; set; }
         public char? Polarisation { get; set; }
         public int PortIn250 { get; set; }
         public bool HaveError { get; set; } = false;

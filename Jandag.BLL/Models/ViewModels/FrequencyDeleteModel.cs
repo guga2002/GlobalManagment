@@ -10,9 +10,9 @@ namespace Jandag.BLL.Models.ViewModels
     {
         public string Degree { get; set; }
 
-        public int SymbolRate { get; set; }
+        public string? SymbolRate { get; set; }
 
-        public int Frequency { get; set; }
+        public string? Frequency { get; set; }
 
         public char? Polarization { get; set; }
 

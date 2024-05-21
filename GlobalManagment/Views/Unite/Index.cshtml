@@ -41,13 +41,13 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .button {
             margin: 2px 2px 2px 2px;
-            min-width: 200px;
-            min-height: 40px;
+            min-width: 210px;
+            min-height: 45px;
             background-color: green;
             color: floralwhite;
             font-weight: 400;
@@ -74,7 +74,7 @@
         }
 
         .button.yellow {
-            background-color: darkolivegreen;
+            background-color: yellowgreen;
             color: black;
             font-weight: bold;
             opacity: 0.7;
@@ -225,11 +225,11 @@
                                 cvlad = "green";
                             }
                             var buttonId = $"{detail.Frequency}_{detail.Polarisation}_{detail.SymbolRate}";
-                            <form method="get" asp-action="ViewAdditionalDetails" asp-asp-controller="SatteliteChanells" class="Gaakete">
+                            <form method="get" asp-action="#" asp-asp-controller="#" class="Gaakete">
                                 <input type="hidden" name="frequency" value="@detail.PortIn250" />
                                 <button type="submit" id="@buttonId" class="btn btn-primary button @cvlad buttonIko">
                                         @($@"{detail.Frequency} {detail.Polarisation} {detail.SymbolRate} ")
-                                        <span style="color: black; font-size: 20px;font-weight:bolder;margin-left:3px;">@(detail.mer)</span>
+                                        @* <span style="color: black; font-size: 20px;font-weight:bolder;margin-left:3px;">@(detail.mer)</span> *@
                                 </button>
                             </form>
                         }

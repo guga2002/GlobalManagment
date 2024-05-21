@@ -161,7 +161,18 @@ namespace Jandag.BLL.Services
                                 }
                                 else
                                 {
-                                    mod.mer = splited[4];
+                                    if (item.EmrNumber == 30 && item.CardNumber == 1)
+                                    {
+                                        mod.mer = splited[5];
+                                    }
+                                    if (item.EmrNumber == 40)
+                                    {
+                                        mod.mer = splited[6];
+                                    }
+                                    else
+                                    {
+                                        mod.mer = splited[4];
+                                    }
                                 }
                             }
                         }

@@ -4,6 +4,9 @@ using Jandag.BLL.Models;
 using Jandag.BLL.Models.ViewModels;
 using Jandag.Persistance.Interface;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 
 namespace GlobalManagment.Controllers
 {
@@ -18,6 +21,30 @@ namespace GlobalManagment.Controllers
             this.ser = ser;
             this.chanells = chanells;
             this.seq = seq;
+
+        }
+
+        public async Task<IActionResult> getRegionInfo()
+        {
+            int port = 183;
+            UdpClient client = new UdpClient(port);
+
+            try
+            {
+                while (true)
+                { 
+                    IPEndPoint clientendpoi=new IPEndPoint(IPAddress.Any, 0);
+                    var recievedinfo = client.Receive(ref clientendpoi);
+
+                    string message = Encoding.UTF8.GetString(recievedinfo);
+                    return Ok(message);
+                }
+            }
+            catch (Exception exp)
+            {
+                return BadRequest(exp);
+                Console.WriteLine("shecdomaa"  );
+            }
 
         }
         public async Task<IActionResult> Index()
