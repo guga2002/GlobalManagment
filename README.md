@@ -3,6 +3,8 @@
 GlobalManagement is a comprehensive management tool designed to streamline operations and enhance productivity.<br> This project aims to provide solutions for efficient management in various domains including project management,
 <br> team collaboration, and resource allocation.<br>
 
+![image](https://github.com/user-attachments/assets/49608143-cd02-42d7-935a-dfa5af0599a5)
+
 ## Features
 - User-friendly interface for easy navigation
 - Robust project management tools
