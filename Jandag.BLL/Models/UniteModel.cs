@@ -6,5 +6,7 @@ namespace Jandag.BLL.Models
     {
         public UniteChanellNamesAndAlarms chyanellnameandalarm { get; set; }
         public IEnumerable<SatteliteViewMonitoring> satelliteview { get; set; }
+        public string temperature { get; set; }
+        public string Humidity { get; set; }
     }
 }

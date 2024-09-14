@@ -15,13 +15,14 @@ namespace GlobalManagment.Controllers
         private readonly ISatteliteFrequencyService ser;
         private readonly IService chanells;
         private readonly IService seq;
+        private readonly ITemperatureService temperature;
 
-        public UniteController(ISatteliteFrequencyService ser, IService chanells, IService seq)
+        public UniteController(ISatteliteFrequencyService ser, IService chanells, IService seq, ITemperatureService temperature)
         {
             this.ser = ser;
             this.chanells = chanells;
             this.seq = seq;
-
+            this.temperature = temperature;
         }
 
         public async Task<IActionResult> getRegionInfo()
@@ -74,6 +75,9 @@ namespace GlobalManagment.Controllers
                 ports = await seq.GetPortsWhereAlarmsIsOn()
             };
             mod.chyanellnameandalarm = data;
+            var result= await temperature.GetCUrrentTemperature();
+            mod.temperature = result.Item1;
+            mod.Humidity=result.Item2;
             return View(mod);
         }
     }

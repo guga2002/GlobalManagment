@@ -72,6 +72,8 @@ builder.Services.AddScoped<RoleManager<IdentityRole>>();
 builder.Services.AddScoped<IService,EmrServices>();
 builder.Services.AddScoped<IsourceServices, SourceService>();
 
+builder.Services.AddScoped<ITemperatureService, TemperatureService>();
+
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();

@@ -1,4 +1,5 @@
 ﻿@using Jandag.BLL.Models;
+@using Jandag.BLL.Services
 @using Jandag.Persistance.Services
 @model UniteModel
 @{
@@ -7,19 +8,21 @@
 @if (Model == null)
 {
     var defaultModel = new EmrServices();
+    var temp = new TemperatureService();
     Model.chyanellnameandalarm.ports = await defaultModel.GetPortsWhereAlarmsIsOn();
     Model.chyanellnameandalarm.namees = await defaultModel.GetChanellNames();
+    var res = await temp.GetCUrrentTemperature();
+    Model.temperature = res.Item1;
+    Model.Humidity = res.Item2;
 }
 <head>
-
-
     <style>
 
         body {
             margin-top: 0px;
             background-color: #D2D180;
             width: 100%;
-            height: 100%;
+            height: 98%;
             margin:0;
         }
 
@@ -31,7 +34,7 @@
             margin-top:4em;
             flex: 2;
             max-width: 95%;
-            min-height: 100%;
+            min-height: 98%;
             background-color: #D2D180 ;
             margin-left:45px;
             position:center;
@@ -53,8 +56,8 @@
             font-weight: 400;
             font-size: 20px;
             border-radius: 200px;
-            width: 3.2em;
-            height: 3.2em;
+            width: 3.3em;
+            height: 2.8em;
         }
 
         .header {
@@ -97,7 +100,7 @@
             color: ghostwhite;
             font-weight: 600;
          /*    width: 1.3em; */
-            height: 2.5em;
+            height: 1.9em;
         }
 
             .button.buttonIko.red {
@@ -119,7 +122,7 @@
             justify-content: flex-start;
             background-color: #B2B377;
             width: 100%;
-            margin-top: 1em;
+            margin-top: 0.5em;
         }
 
         .card {
@@ -152,10 +155,84 @@
             margin-left: 40px;
         }
 
+        .text-box-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color:green;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+            width: 90%;
+            text-align: center;
+            height:55px;
+            text-decoration:revert;
+            align-items:center;
+            margin-left:3%;
+            background-color: #B3E5FC;
+            border-radius:200px;
+            margin-top:0%;
+            margin-bottom:1%;
+            font-size: 25px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.6); /* Add shadow for depth */
+            font-weight: bolder;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .text-box-btn-orange
+        {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: black;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+            width: 90%;
+            text-align: center;
+            height: 50px;
+            align-items: center;
+            margin-left: 3%;
+            background-color: orange;
+            border-radius: 150px;
+            margin-top: 0%;
+            margin-bottom: 1%;
+            font-size: 20px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.8); /* Add shadow for depth */
+            font-weight: bolder;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .text-box-btn-red {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+            width: 90%;
+            text-align: center;
+            height: 50px;
+            align-items: center;
+            margin-left: 3%;
+            background-color: red;
+            border-radius: 150px;
+            margin-top: 0%;
+            margin-bottom: 1%;
+            font-size: 20px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.7); /* Add shadow for depth */
+            font-weight:bolder;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+    
     </style>
 </head>
 <body>
-
     <script>
         function refreshPage() {
             location.reload();
@@ -163,11 +240,33 @@
         setInterval(refreshPage, 3000);
     </script>
     <div class="container">
+
+        @try
+        {
+        @if (double.Parse(Model.temperature)<20)
+            {
+                <button align="center" type="submit" id="buttonTemp" class="text-box-btn">სადგურში მიმდინარე ტემპერატურაა: @Model.temperature °C / ტენიანობა: @Model.Humidity %</button>
+            }
+        else if (double.Parse(Model.temperature) >=20 && double.Parse(Model.temperature) < 23)
+            {
+                <button align="center" type="submit" id="buttonTemp" class="text-box-btn-orange">სადგურში მიმდინარე ტემპერატურაა: @Model.temperature °C / ტენიანობა: @Model.Humidity %  შეამოწმე !</button>
+        }
+        else
+        {
+                <button align="center" type="submit" id="buttonTemp" class="text-box-btn-red">სადგურში მიმდინარე ტემპერატურაა: @Model.temperature °C / ტენიანობა: @Model.Humidity % სასწრაფოდ გადაამოწმე !   !    !   !    !    !    !   !</button>
+        
+        }
+        }
+        catch (Exception)
+        {
+            <button align="center" type="submit" id="buttonTemp" class="text-box-btn-red">შეცდომა ტემპერატურის წამოღების დროს, დაუკავშირდი დეველოპმენტის ჯგუფს !  ! !</button>
+        }
         <div class="button-group">
             @{
                 int i = 0;
                 int j = 0;
             }
+  
             @foreach (var item in Model.chyanellnameandalarm.namees)
             {
                 var buttonColorss = "green";
@@ -229,7 +328,7 @@
                                 <input type="hidden" name="frequency" value="@detail.PortIn250" />
                                 <button type="submit" id="@buttonId" class="btn btn-primary button @cvlad buttonIko">
                                         @($@"{detail.Frequency} {detail.Polarisation} {detail.SymbolRate} ")
-                                        @* <span style="color: black; font-size: 20px;font-weight:bolder;margin-left:3px;">@(detail.mer)</span> *@
+                                        <span style="color: black; font-size: 20px;font-weight:bolder;margin-left:3px;">@(detail.mer)</span>
                                 </button>
                             </form>
                         }
