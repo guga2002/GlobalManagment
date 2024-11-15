@@ -5,7 +5,7 @@ namespace Jandag.BLL.Services
     public class TemperatureService : ITemperatureService
     {
         private static readonly HttpClient client = new HttpClient();
-        private const string serverUrl = "http://192.168.100.106:8080";
+        private const string serverUrl = "http://192.168.100.104:8080";
         public async Task<(string,string)> GetCUrrentTemperature()
         {
             try

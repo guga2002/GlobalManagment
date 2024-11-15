@@ -17,14 +17,14 @@ namespace Jandag.Persistance.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    var qer = content.Split(new string[] { "zInNode7", "zOutNode4", "language = ENGLISH" }, StringSplitOptions.None);
-                    await Console.Out.WriteLineAsync(qer[1]);
+                    var qer = content.Split(new string[] { "zInNode7" }, StringSplitOptions.None);
                     var res = qer[1].Split(new char[] { '\r', '\n' });
                     for (int i = 0; i < res.Length; i++)
                     {
                         list.Add(res[i]);
                     }
-                    var newlist = list.Where(io => io.Contains("[Scrambled]")).ToList();
+
+                    var newlist = list.Where(io => io.Contains("movelevel:\"3\"")).ToList();
 
                     foreach (var item in newlist)
                     {
@@ -34,22 +34,23 @@ namespace Jandag.Persistance.Services
                         await Console.Out.WriteLineAsync();
 
                     }
+
+                    var logs = CHanells.Skip(153).ToList();//gadavagdot  uargisi  dublikatebi
                     int ik = 1;
-                    foreach (var item in CHanells)
+                    foreach (var item in logs)
                     {
-                        //await Console.Out.WriteLineAsync(item);
+                        Console.WriteLine(item);
                         map.Add(ik, item);
                         ik++;
                     }
-                    // Console.WriteLine(CHanells.Count());
                     return map;
                 }
                 else
                 {
                     Console.WriteLine($"Failed to retrieve data. Status code: {response.StatusCode}");
+                    return null;
                 }
             }
-            return null;
         }
         static string ExtractChannelName(string jsonString)
         {
