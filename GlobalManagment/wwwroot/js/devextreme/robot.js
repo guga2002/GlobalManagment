@@ -16,8 +16,15 @@
     }
     else {
         robotContainer.style.display = "none";
+
+        setInterval(refreshPage, 3000);
     }
+
 }
+function refreshPage() {
+    location.reload();
+}
+
 
 function fetchRobotMessage() {
     fetch('/Robot/GetRobotMessage')
