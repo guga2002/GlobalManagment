@@ -1,4 +1,5 @@
-﻿using Jandag.BLL.Models.ViewModels;
+﻿using Jandag.BLL.Models.Region;
+using Jandag.BLL.Models.ViewModels;
 
 namespace Jandag.BLL.Models
 {
@@ -8,5 +9,6 @@ namespace Jandag.BLL.Models
         public IEnumerable<SatteliteViewMonitoring> satelliteview { get; set; }
         public string temperature { get; set; }
         public string Humidity { get; set; }
+        //public List<RegionResponseViewModel> RegionResponse { get; set; }
     }
 }

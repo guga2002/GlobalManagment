@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jandag.BLL.Models.Region;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace Jandag.BLL.Models.ViewModels
     public class UniteChanellNamesAndAlarms
     {
         public Dictionary<int, string> namees {get;set;}
+
+       
 
         public List<int> ports { get; set;}
     }
