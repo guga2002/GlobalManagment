@@ -12,7 +12,7 @@ namespace GlobalManagment.Controllers
             currentMessage = _sharedMessage;
             if (currentMessage == _sharedMessage)
                 _sharedMessage = "Empty";
-            return Json(new { message = currentMessage });
+            return Json(new { message = currentMessage});
         }
 
         [HttpGet("api/[controller]/start")]

@@ -12,6 +12,7 @@ using Jandag.Persistance.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Repositories;
 using Speaker.leison.Database_Layer.Interfaces;
@@ -35,6 +36,7 @@ builder.Services.AddDbContext<GlobalTvDb>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("GlobalCOnnection"));
 });
 
+
 builder.Services.AddIdentity<User, IdentityRole>().
     AddEntityFrameworkStores<GlobalTvDb>()
     .AddDefaultTokenProviders();
@@ -53,6 +55,7 @@ builder.Services.AddIdentity<User, IdentityRole>().
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("65E255FF-F399-42D4-9C7F-D5D08B0EC285")),
         };
     });
+
 
 builder.Services.AddScoped<UserManager<User>>();
 builder.Services.AddScoped<SignInManager<User>>();
@@ -87,7 +90,12 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
-app.UseStaticFiles();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(@"C:\"), // Serve from the root of C:
+    RequestPath = "" // Make files accessible without a prefix
+});
 
 app.UseRouting();
 
