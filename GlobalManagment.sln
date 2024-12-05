@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jandag.DLL", "Jandag.DLL\Ja
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jandag.BLL", "Jandag.BLL\Jandag.BLL.csproj", "{76CB6D33-6DC7-486C-8857-713D6298E5E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jandag.Persistance", "Jandag.Persistance\Jandag.Persistance.csproj", "{95E2F3A1-226F-431B-A05A-F98C001A7284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jandag.Persistance", "Jandag.Persistance\Jandag.Persistance.csproj", "{95E2F3A1-226F-431B-A05A-F98C001A7284}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
