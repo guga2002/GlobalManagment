@@ -7,5 +7,6 @@ namespace Jandag.BLL.Interface
     {
         Task<IEnumerable<SatteliteViewMonitoring>> GetMonitoringFrequencies();
         Task<SatteliteFrequencyModel> GetDetailsByEmrport(int PortId);
+        Task<List<int>> GetAllarmsFromRegion();
     }
 }

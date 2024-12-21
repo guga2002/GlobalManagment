@@ -5,6 +5,7 @@ using Jandag.BLL.Models.ViewModels;
 using Jandag.BLL.Services;
 using Jandag.Persistance.Interface;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Sockets;
@@ -54,13 +55,26 @@ namespace GlobalManagment.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            Stopwatch watch = new Stopwatch();
             aqa:
             UniteModel mod = new UniteModel();
             try
             {
+                watch.Start();
                 // var region =await  regioninfo.Getinfo();
                 var res = await ser.GetMonitoringFrequencies();
                 var ports = await chanells.GetPortsWhereAlarmsIsOn();
+                try
+                {
+                    var portsregion = await ser.GetAllarmsFromRegion();
+                    ports.AddRange(portsregion);//add info from region
+                }
+                catch (Exception exp)
+                {
+                    await Console.Out.WriteLineAsync(exp.Message);
+                    await SentMessagToGuga(BuildHtmlMessage(exp.Message, exp.StackTrace));
+                    ports.AddRange(new List<int> { 370, 371, 372, 373 });//turn off all  relay if errror ocured
+                }
                 foreach (var item in res)
                 {
                     foreach (var it in item.details)
@@ -88,14 +102,19 @@ namespace GlobalManagment.Controllers
                 var result = await temperature.GetCUrrentTemperature();
                 mod.temperature = result.Item1;
                 mod.Humidity = result.Item2;
+                watch.Stop();
+                await Console.Out.WriteLineAsync(Guid.NewGuid().ToString());
+                await Console.Out.WriteLineAsync(watch.ElapsedMilliseconds.ToString());
                 return View(mod);
             }
             catch (Exception exp)
             {
+                await Console.Out.WriteLineAsync(exp.Message);
                 await SentMessagToGuga(BuildHtmlMessage(exp.Message,exp.StackTrace));
-                await Task.Delay(TimeSpan.FromMinutes(5));
+                await Task.Delay(TimeSpan.FromSeconds(2));
                 goto aqa;
             }
+           
         }
 
         private const string SmtpServer = "smtp.gmail.com";

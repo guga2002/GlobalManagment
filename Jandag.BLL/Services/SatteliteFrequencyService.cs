@@ -13,6 +13,27 @@ namespace Jandag.BLL.Services
         {
         }
 
+        public async Task<List<int>> GetAllarmsFromRegion()
+        {
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, sslPolicyErrors) => true
+            };
+            using (var client=new HttpClient(handler))
+            {
+                var result=await client.GetAsync("https://192.168.0.28:2024/api/RegionChecker/GetRegionsWhereAlarmIsOn");
+
+                if(result.IsSuccessStatusCode)
+                {
+                    var content=await result.Content.ReadAsStringAsync();
+
+                    var ports=System.Text.Json.JsonSerializer.Deserialize<List<int>>(content);
+                    return ports??new List<int>();
+                }
+                return new List<int>();
+            }
+        }
+
         public async Task<bool> AddAsync(SatteliteFrequencyModel Item)
         {
             try
@@ -155,7 +176,7 @@ namespace Jandag.BLL.Services
                                 var response = await htpserver.GetAsync($"http://192.168.20.{item.EmrNumber}/goform/formEMR30?type=2&cmd=1&language=0&slotNo={item.CardNumber - 1}&portNo={item.portNumber - 1}&ran=0.99{ran.Next()}");
                                 var cont = await response.Content.ReadAsStringAsync();
                                 var splited = cont.Split(new string[] { "<*1*>", "<html>", "</html>" }, StringSplitOptions.None);
-                                if (splited[0].ToLower().Equals( "unlock"))
+                                if (splited[0].ToLower().Equals("unlock"))
                                 {
                                     mod.HaveError = true;
                                 }
