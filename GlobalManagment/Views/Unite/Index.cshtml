@@ -15,11 +15,28 @@
     Model.temperature = res.Item1;
     Model.Humidity = res.Item2;
 }
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://192.168.100.104:3395/NatiaResource/Site.css">
-</head>
+
+@{
+    var rand = DateTime.Now;
+}
+
+@if(rand.Hour>=22&&rand.Hour<=10)
+{
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://192.168.100.104:3395/NatiaResource/Dark.css">
+    </head>
+}
+else
+{
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://192.168.100.104:3395/NatiaResource/site.css">
+    </head>
+}
+
 <body>
 
     <script>
@@ -28,6 +45,22 @@
         }
         setInterval(refreshPage, 6000); 
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentHour = new Date().getHours();
+
+            if ( (currentHour >= 20 || currentHour < 6)) {
+                document.body.classList.add('dark-mode');
+            }
+
+            window.toggleDarkMode = function () {
+                const isDarkMode = document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            }
+        });
+    </script>
+
     @if (DateTime.Now.Month == 12 || DateTime.Now.Month == 1)
             {
         <div class="santa-container" style="z-index:1001">
@@ -140,7 +173,7 @@
                                 }
                                 var buttonId = $"{detail.Frequency}_{detail.Polarisation}_{detail.SymbolRate}";
                                 <form method="get" asp-action="#" asp-asp-controller="#" class="Gaakete">
-                                    <input type="hidden" name="frequency" value="@detail.PortIn250" />
+                                    <input type="hidden" class="PortIn"name="frequency" value="@detail.PortIn250" />
                                     <button type="submit" id="@buttonId" class="btn btn-primary button @cvlad buttonIko">
                                         @($@"{detail.Frequency} {detail.Polarisation} {detail.SymbolRate} ")
                                         <span style="color: black; font-size: 20px;font-weight:bolder;margin-left:3px;">@(detail.mer)</span>
