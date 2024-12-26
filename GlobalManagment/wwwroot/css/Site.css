@@ -21,3 +21,30 @@ body {
 .Robbotiko {
    background-color:red;
 }
+
+/* Santa animation */
+.santa-container {
+    position: fixed;
+    bottom: 10%; /* Adjust height for Santa's path */
+    width: 100%;
+    pointer-events: none; /* Prevent interference with user interactions */
+    overflow: hidden;
+    background-color:red;
+}
+
+.santa {
+    position: absolute;
+    width: 120px; /* Adjust size of Santa */
+    animation: santa-run 8s linear infinite; /* 8s loop for smoother movement */
+}
+
+/* Animation keyframes */
+@keyframes santa-run {
+    0% {
+        left: -150px; /* Start off-screen */
+    }
+
+    100% {
+        left: 100%; /* Exit off-screen */
+    }
+}
