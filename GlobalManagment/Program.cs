@@ -91,12 +91,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(@"C:\"), // Serve from the root of C:
-    RequestPath = "" // Make files accessible without a prefix
-});
-
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();

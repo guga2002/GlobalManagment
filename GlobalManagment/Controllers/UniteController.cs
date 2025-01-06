@@ -49,7 +49,6 @@ namespace GlobalManagment.Controllers
             catch (Exception exp)
             {
                 return BadRequest(exp);
-                Console.WriteLine("shecdomaa"  );
             }
 
         }
