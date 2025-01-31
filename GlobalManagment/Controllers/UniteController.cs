@@ -6,6 +6,7 @@ using Jandag.BLL.Services;
 using Jandag.Persistance.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Drawing.Text;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Sockets;
@@ -20,14 +21,37 @@ namespace GlobalManagment.Controllers
         private readonly IService seq;
         private readonly ITemperatureService temperature;
         private readonly RegionInfo regioninfo;
+        private readonly HttpClient _client;
 
-        public UniteController(ISatteliteFrequencyService ser, IService chanells, IService seq, ITemperatureService temperature)
+        public UniteController(ISatteliteFrequencyService ser, IService chanells, IService seq, ITemperatureService temperature, HttpClient client)
         {
             this.ser = ser;
             this.chanells = chanells;
             this.seq = seq;
             this.temperature = temperature;
             regioninfo=new RegionInfo();
+            _client = client;
+        }
+
+
+        private async Task CallRobotHealth()
+        {
+            try
+            {
+                string baseUrl = "http://192.168.0.79:3395/api/controll/checkrobot";
+                var res = await _client.GetAsync(baseUrl);
+
+
+                if (!res.IsSuccessStatusCode)
+                {
+                    throw new ArgumentException("Shecdoma natias gadatvirtvisas");
+                }
+                await Console.Out.WriteLineAsync(await res.Content.ReadAsStringAsync());
+            }
+            catch (Exception exp)
+            {
+                await SentMessagToGuga(BuildHtmlMessage(exp.Message, exp.StackTrace));
+            }
         }
 
         public async Task<IActionResult> getRegionInfo()
@@ -104,6 +128,7 @@ namespace GlobalManagment.Controllers
                 watch.Stop();
                 await Console.Out.WriteLineAsync(Guid.NewGuid().ToString());
                 await Console.Out.WriteLineAsync(watch.ElapsedMilliseconds.ToString());
+                await CallRobotHealth();
                 return View(mod);
             }
             catch (Exception exp)

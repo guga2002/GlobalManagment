@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Repositories;
 using Speaker.leison.Database_Layer.Interfaces;
 using Speaker.leison.Database_Layer.Repositories;
+using System.Net;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddControllersWithViews()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+//builder.Services.AddSwaggerGen();
+
+//builder.Services.AddControllers();
 
 builder.WebHost.UseKestrel(options =>
 {
@@ -36,6 +41,7 @@ builder.Services.AddDbContext<GlobalTvDb>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("GlobalCOnnection"));
 });
 
+builder.Services.AddHttpClient();
 
 builder.Services.AddIdentity<User, IdentityRole>().
     AddEntityFrameworkStores<GlobalTvDb>()
@@ -91,14 +97,22 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 
+app.MapControllers();
 app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+//app.UseSwagger();
+//app.UseSwaggerUI(opt=>
+//{
+  //  opt.SwaggerEndpoint("swagger/v1/swagger.json", "Global Tv");
+//});
+
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Unite}/{action=Index}");
+   pattern: "{controller=Unite}/{action=Index}");
 
 app.Run();
