@@ -30,13 +30,13 @@ namespace GlobalManagment.Controllers
         [AllowAnonymous]
         public async Task<string> CheckRobotHealth()
         {
-            string processName = "NatiaGuard.BrainStorm";
+            string processName = "Natia.UI";
 
             bool isRunning = Process.GetProcessesByName(processName).Any();
 
             if (!isRunning)
             {
-                string exePath = @"C:\Users\MONITORING PC\source\repos\Unite\NatiaGuard.BrainStorm\bin\Release\net8.0\publish\win-x64\NatiaGuard.BrainStorm.exe";
+                string exePath = @"C:\Users\MONITORING PC\source\repos\Natia.UI\Natia.UI\bin\Release\net8.0\publish\Natia.UI.exe";
                 StartProcess(exePath);
             }
 
@@ -55,11 +55,11 @@ namespace GlobalManagment.Controllers
         [AllowAnonymous]
         public async Task<string> Reload()
         {
-            string exePath = @"C:\Users\MONITORING PC\source\repos\Unite\NatiaGuard.BrainStorm\bin\Release\net8.0\publish\win-x64\NatiaGuard.BrainStorm.exe";
-            string processName = "NatiaGuard.BrainStorm";
+            string exePath = @"C:\Users\MONITORING PC\source\repos\Natia.UI\Natia.UI\bin\Release\net8.0\publish\Natia.UI.exe";
+            string processName = "Natia.UI";
 
             StopProcess(processName);
-            Thread.Sleep(2000);
+            await Task.Delay(2000);
             StartProcess(exePath);
 
             return "Successfully Reloaded";
@@ -93,8 +93,23 @@ namespace GlobalManagment.Controllers
         {
             try
             {
-                Process.Start(exePath);
-                Console.WriteLine($"Started process: {exePath}");
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    Arguments = $"/c start \"\" \"{exePath}\"", // Detach process via cmd
+                    CreateNoWindow = true,  // Prevents console window
+                    UseShellExecute = false // Ensures independent session
+                };
+
+                string processName = "Natia.UI";
+
+                bool isRunning = Process.GetProcessesByName(processName).Any();
+
+                if (!isRunning)
+                {
+                    Process.Start(startInfo);
+                    Console.WriteLine($"Started process: {exePath}");
+                }
             }
             catch (Exception ex)
             {

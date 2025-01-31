@@ -33,27 +33,6 @@ namespace GlobalManagment.Controllers
             _client = client;
         }
 
-
-        private async Task CallRobotHealth()
-        {
-            try
-            {
-                string baseUrl = "http://192.168.0.79:3395/api/controll/checkrobot";
-                var res = await _client.GetAsync(baseUrl);
-
-
-                if (!res.IsSuccessStatusCode)
-                {
-                    throw new ArgumentException("Shecdoma natias gadatvirtvisas");
-                }
-                await Console.Out.WriteLineAsync(await res.Content.ReadAsStringAsync());
-            }
-            catch (Exception exp)
-            {
-                await SentMessagToGuga(BuildHtmlMessage(exp.Message, exp.StackTrace));
-            }
-        }
-
         public async Task<IActionResult> getRegionInfo()
         {
             int port = 183;
@@ -128,7 +107,6 @@ namespace GlobalManagment.Controllers
                 watch.Stop();
                 await Console.Out.WriteLineAsync(Guid.NewGuid().ToString());
                 await Console.Out.WriteLineAsync(watch.ElapsedMilliseconds.ToString());
-                await CallRobotHealth();
                 return View(mod);
             }
             catch (Exception exp)
