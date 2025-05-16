@@ -33,7 +33,7 @@ builder.Services
 
 builder.WebHost.UseKestrel(options =>
 {
-    options.ListenAnyIP(3393); // Bind to all interfaces on port 3056
+    options.ListenAnyIP(3395); // Bind to all interfaces on port 3056
 });
 
 builder.Services.AddDbContext<GlobalTvDb>(opt =>
