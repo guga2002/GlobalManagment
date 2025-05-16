@@ -25,7 +25,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="http://192.168.0.28:8080/NatiaResource/Dark.css">
+        <link rel="stylesheet" href="http://192.168.1.102:8080/NatiaResource/Dark.css">
     </head>
 }
 else
@@ -35,7 +35,7 @@ else
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="http://192.168.0.28:8080/NatiaResource/Zamtari.css">
+            <link rel="stylesheet" href="http://192.168.1.102:8080/NatiaResource/Zamtari.css">
         </head>
     }
     else
@@ -43,7 +43,7 @@ else
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="http://192.168.0.28:8080/NatiaResource/Site.css">
+            <link rel="stylesheet" href="http://192.168.1.102:8080/NatiaResource/Site.css">
           
         </head>
         
@@ -65,7 +65,7 @@ else
     @if (DateTime.Now.Month == 12 || DateTime.Now.Month == 1)
             {
         <div class="santa-container" style="z-index:1001">
-            <img src="http://192.168.0.28:8080/NatiaResource/SantaIrbine.gif" alt="Santa" class="santa" height="130" width="200" />
+            <img src="http://192.168.1.102:8080/NatiaResource/SantaIrbine.gif" alt="Santa" class="santa" height="130" width="200" />
     </div>
             }
     <div class="container">
@@ -132,19 +132,19 @@ else
             }
             <div style="z-index:900;position:absolute; margin-left:5%;margin-top:25%">
 
-                <script src="http://192.168.0.28:8080/NatiaResource/robot.js"></script>
+                <script src="http://192.168.1.102:8080/NatiaResource/robot.js"></script>
                 @Html.Partial("_Robot")
 
             </div>
 
             @if (DateTime.Now.Month == 12 || DateTime.Now.Month == 1)
             {
-                <img src="http://192.168.0.28:8080/NatiaResource/SantaGif.gif" height="80" width="130" />
-                <img src="http://192.168.0.28:8080/NatiaResource/SantaGif2.gif" height="80" width="200" />
-                <img src="http://192.168.0.28:8080/NatiaResource/SantaGif.gif" height="80" width="130" />
-                <img src="http://192.168.0.28:8080/NatiaResource/SantaGif2.gif" height="80" width="200" />
-                <img src="http://192.168.0.28:8080/NatiaResource/SantaGif.gif" height="80" width="130" />
-                <img src="http://192.168.0.28:8080/NatiaResource/SantaGif2.gif" height="80" width="200" />
+                <img src="http://192.168.1.102:8080/NatiaResource/SantaGif.gif" height="80" width="130" />
+                <img src="http://192.168.1.102:8080/NatiaResource/SantaGif2.gif" height="80" width="200" />
+                <img src="http://192.168.1.102:8080/NatiaResource/SantaGif.gif" height="80" width="130" />
+                <img src="http://192.168.1.102:8080/NatiaResource/SantaGif2.gif" height="80" width="200" />
+                <img src="http://192.168.1.102:8080/NatiaResource/SantaGif.gif" height="80" width="130" />
+                <img src="http://192.168.1.102:8080/NatiaResource/SantaGif2.gif" height="80" width="200" />
             }
         </div>
 

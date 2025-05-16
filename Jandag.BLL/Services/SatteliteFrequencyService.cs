@@ -21,7 +21,7 @@ namespace Jandag.BLL.Services
             };
             using (var client=new HttpClient(handler))
             {
-                var result=await client.GetAsync("https://192.168.0.28:2024/api/RegionChecker/GetRegionsWhereAlarmIsOn");
+                var result=await client.GetAsync("https://192.168.1.102:2024/api/RegionChecker/GetRegionsWhereAlarmIsOn");
 
                 if(result.IsSuccessStatusCode)
                 {
