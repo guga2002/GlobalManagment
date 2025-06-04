@@ -92,6 +92,36 @@ namespace GlobalManagment.Controllers
 
                     }
                 }
+
+                if(ports.Contains(144))
+                {
+                    if(!ports.Contains(145))
+                    {
+                        ports.Add(1025);
+                        ports.Remove(144);
+                    }
+                }
+
+                if(ports.Contains(145))
+                {
+                    try
+                    {
+                        using var client = new HttpClient
+                        {
+                            Timeout = TimeSpan.FromSeconds(3)
+                        };
+                        using var response = await client.GetAsync("https://www.google.com");
+                        if (response.IsSuccessStatusCode)
+                        {
+                            ports.Add(1024);
+                            ports.Remove(145);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        throw new ArgumentException("გუგა შეცდომა გვაქვს ინტერნეტის შემოწმებისას");
+                    }
+                }
       
                 mod.satelliteview = res;
                 UniteChanellNamesAndAlarms data = new UniteChanellNamesAndAlarms()
